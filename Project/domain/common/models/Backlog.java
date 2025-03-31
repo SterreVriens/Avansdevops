@@ -1,4 +1,4 @@
-package Project.domain.common.models;
+package project.domain.common.models;
 
 import java.util.List;
 

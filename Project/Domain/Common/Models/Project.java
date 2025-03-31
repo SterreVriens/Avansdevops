@@ -1,4 +1,4 @@
-package Project.domain.common.models;
+package project.domain.common.models;
 
 import java.util.List;
 
@@ -56,8 +56,8 @@ public class Project {
     public void setTeamMembers(List<User> teamMembers) {
         this.teamMembers = teamMembers;
     }
-    public void addTeamMembers(User u) {
-        this.teamMembers.add(u);
+    public void addTeamMembers(User user) {
+        this.teamMembers.add(user);
     }
     // Backlog
     public Backlog getBacklog() {

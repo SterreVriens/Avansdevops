@@ -1,6 +1,6 @@
-package Project.domain.common.models;
+package project.domain.common.models;
 
-import Project.domain.common.enums.UserRole;
+import project.domain.common.enums.UserRole;
 
 public class User {
     private String username;
