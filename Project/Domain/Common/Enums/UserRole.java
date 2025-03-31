@@ -1,4 +1,4 @@
-package Project.Domain.Common.Enums;
+package Project.domain.common.enums;
 
 public enum UserRole {
     PRODUCTOWNER,
