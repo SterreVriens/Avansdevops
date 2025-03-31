@@ -1,4 +1,4 @@
-package project.domain.backlogitem.states;
+package project.domain.backlogitem.models.states;
 
 import project.domain.backlogitem.interfaces.IBacklogItemState;
 

@@ -20,4 +20,28 @@ public class BacklogItem {
         this.title = title;
         this.description = description;
     }
+
+    // Make these + SetState(state : State) : void
+// + AddObserver(observer : Observer) : void
+// + DeleteObserver(observer : Observer) : void
+// + NotifyObservers() : void
+
+    public void setState(IBacklogItemState state) {
+        this.currentState = state;
+        NotifyObservers();
+    }
+
+    public void AddObserver(IBacklogItemObserver observer) {
+        observers.add(observer);
+    }
+
+    public void DeleteObserver(IBacklogItemObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void NotifyObservers() {
+        for (IBacklogItemObserver observer : observers) {
+            observer.Update(this);
+        }
+    }
 }
