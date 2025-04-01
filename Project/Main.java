@@ -17,6 +17,8 @@ import project.domain.common.enums.UserRole;
 import project.domain.common.models.Backlog;
 import project.domain.common.models.Project;
 import project.domain.common.models.User;
+import project.domain.pipeline.Pipeline;
+import project.domain.pipeline.Step;
 import project.domain.sprint.Sprint;
 import project.domain.sprint.interfaces.ISprintStrategy;
 import project.domain.sprint.states.CreatedSprintState;
@@ -38,7 +40,12 @@ public class Main {
         Backlog backlog = new Backlog(1);
         project.setBacklog(backlog);
 
-        Sprint sprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1,new ReleaseSprintStrategy());
+        Pipeline pipeline = new Pipeline("Release Pipeline");
+        pipeline.addChild(new Step("Build", "mvn clean install"));
+        pipeline.addChild(new Step("Test", "mvn test"));
+        pipeline.addChild(new Step("Deploy", "kubectl apply"));
+
+        Sprint sprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1,new ReleaseSprintStrategy(pipeline));
 
         project.addTeamMembers(user1);
         project.addTeamMembers(user2);
