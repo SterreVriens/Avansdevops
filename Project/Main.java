@@ -35,8 +35,7 @@ public class Main {
 
         Project project = new Project(0, "Project", "Making app", user3, null);
 
-        Backlog backlog = new Backlog(1);
-        project.setBacklog(backlog);
+        Backlog backlog = new Backlog(1, project);
 
         Sprint sprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1,new ReleaseSprintStrategy());
 
@@ -49,8 +48,8 @@ public class Main {
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         sprint1.addBacklogItem(bi1);
 
-        bi1.setState(new DoingState());
-        // bi1.setState(new ReadyForTestingState());
+        // bi1.setState(new DoingState());
+        bi1.setState(new ReadyForTestingState());
 
         // ------------------------------------------Section End------------------------------------------
 

@@ -6,11 +6,15 @@ import project.domain.backlogitem.models.BacklogItem;
 
 public class Backlog {
     private int id;
+    private Project project;
     private ArrayList<BacklogItem> backlogItems = new ArrayList<>();
 
     // Constructor
-    public Backlog(int id) {
+    public Backlog(int id, Project project) {
+        this.project = project;
         this.id = id;
+
+        project.setBacklog(this);
     }
 
     // ID
@@ -25,5 +29,9 @@ public class Backlog {
     }
     public void addBacklogItem(BacklogItem backlogItem) {
         this.backlogItems.add(backlogItem);
+    }
+
+    public User[] getTesters() {
+        return this.project.getTesters();
     }
 }
