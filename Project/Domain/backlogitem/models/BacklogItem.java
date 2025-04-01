@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import project.domain.backlogitem.interfaces.IBacklogItemObserver;
 import project.domain.backlogitem.interfaces.IBacklogItemState;
+import project.domain.backlogitem.interfaces.IBacklogItemObserver;
 import project.domain.backlogitem.models.states.ToDoState;
 import project.domain.common.models.User;
 
