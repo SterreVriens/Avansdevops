@@ -2,6 +2,7 @@ package project.domain.backlogitem.models;
 
 import java.util.ArrayList;
 
+import project.domain.backlogitem.interfaces.IBacklogItemObserver;
 import project.domain.backlogitem.interfaces.IBacklogItemState;
 import project.domain.backlogitem.models.states.ToDoState;
 import project.domain.common.models.User;
@@ -19,12 +20,9 @@ public class BacklogItem {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.assignedTo = assignedTo;
     }
 
-    // Make these + SetState(state : State) : void
-// + AddObserver(observer : Observer) : void
-// + DeleteObserver(observer : Observer) : void
-// + NotifyObservers() : void
 
     public void setState(IBacklogItemState state) {
         this.currentState = state;
@@ -43,5 +41,75 @@ public class BacklogItem {
         for (IBacklogItemObserver observer : observers) {
             observer.Update(this);
         }
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public IBacklogItemState getCurrentState() {
+        return currentState;
+    }
+
+
+    public void setCurrentState(IBacklogItemState currentState) {
+        this.currentState = currentState;
+    }
+
+
+    public ArrayList<IBacklogItemObserver> getObservers() {
+        return observers;
+    }
+
+
+    public void setObservers(ArrayList<IBacklogItemObserver> observers) {
+        this.observers = observers;
+    }
+
+
+    public ArrayList<Activty> getActivities() {
+        return activities;
+    }
+
+
+    public void setActivities(ArrayList<Activty> activities) {
+        this.activities = activities;
+    }
+
+
+    public User getAssignedTo() {
+        return assignedTo;
+    }
+
+
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }
