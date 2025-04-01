@@ -23,9 +23,7 @@ public class ReportedSprintState implements ISprintState {
 
     @Override
     public void finalize() {
-        this.sprint.setState(new FinalizedSprintState(this.sprint));
         this.sprint.getSprintStrategy().finalizeSprint(this.sprint);
-        System.out.println("Sprint " + this.sprint.getName() + " finalized.");
     }
 
     @Override

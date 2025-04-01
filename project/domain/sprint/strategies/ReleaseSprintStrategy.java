@@ -10,6 +10,7 @@ public class ReleaseSprintStrategy implements ISprintStrategy {
         // Logic to release the sprint
         System.out.println("Releasing the sprint...");
         // TODO - add pipeline logic
+        // TODO update state to finished state
         // Additional logic for releasing the sprint can be added here
     }
 
