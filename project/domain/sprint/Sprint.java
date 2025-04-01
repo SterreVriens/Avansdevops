@@ -6,6 +6,7 @@ import java.util.Date;
 import project.domain.backlogitem.models.BacklogItem;
 import project.domain.common.models.Project;
 import project.domain.common.models.User;
+import project.domain.notification.models.NotificationService;
 import project.domain.sprint.interfaces.ISprintState;
 import project.domain.sprint.interfaces.ISprintStrategy;
 import project.domain.sprint.states.CreatedSprintState;
@@ -24,14 +25,19 @@ public class Sprint {
     private RaportBuilder raportBuilder;
     private Raport raport;
     private ArrayList<BacklogItem> backlogItems = new ArrayList<>();
+    private Project project;
 
-    public Sprint(String name, Date startDate, Date endDate, User scrumMaster, ISprintStrategy sprintStrategy) {
+    private NotificationService notificationService;
+
+    public Sprint(String name, Date startDate, Date endDate, User scrumMaster, ISprintStrategy sprintStrategy, Project project) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.scrumMaster = scrumMaster;
         this.sprintStrategy = sprintStrategy;
         this.state = new CreatedSprintState(this);
+        this.notificationService = new NotificationService();
+        this.project = project;
     }
 
     // Getters and Setters
@@ -177,5 +183,17 @@ public class Sprint {
 
         // Exporteer het rapport als PNG
         this.raport.exportAsPNG();
+    }
+
+    public void sendNotification(User toUsers, String subject, String body) {
+        notificationService.sendToUser(toUsers, subject, body);
+    }
+
+    public void sendNotification(User[] toUsers, String subject, String body) {
+        notificationService.sendToMultipleUsers(toUsers, subject, body);
+    }
+
+    public Project getProject() {
+        return project;
     }
 }

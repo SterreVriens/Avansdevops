@@ -24,6 +24,7 @@ import project.domain.sprint.interfaces.ISprintStrategy;
 import project.domain.sprint.states.CreatedSprintState;
 import project.domain.sprint.states.StartedSprintState;
 import project.domain.sprint.strategies.ReleaseSprintStrategy;
+import project.domain.sprint.strategies.ReviewSprintStrategy;
 
 import java.util.Date;
 
@@ -44,7 +45,11 @@ public class Main {
         pipeline.addChild(new Step("Test", "mvn test"));
         pipeline.addChild(new Step("Deploy", "kubectl apply"));
 
-        Sprint sprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1,new ReleaseSprintStrategy(pipeline));
+        Sprint releaseSprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1, new ReleaseSprintStrategy(pipeline), project);
+        Sprint reviewSprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1, new ReviewSprintStrategy(), project);
+
+        //TODO: ?
+        reviewSprint1.setReviewSummery("Review summary");
 
         project.addTeamMembers(user1);
         project.addTeamMembers(user2);
@@ -53,28 +58,28 @@ public class Main {
 
         // ------------------------------------------Section NotifyOnStateChange------------------------------------------
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
-        sprint1.addBacklogItem(bi1);
+        releaseSprint1.addBacklogItem(bi1);
 
         // bi1.setState(new DoingState());
-        bi1.setState(new ReadyForTestingState());
+        // bi1.setState(new ReadyForTestingState());
 
         // ------------------------------------------Section End------------------------------------------
+        
+        //Release
+        releaseSprint1.start();
 
-        // // Create a sprint with CreatedSprintState
-        // Sprint sprint = new Sprint("Initial Sprint", new Date(), new Date(), new
-        // ReleaseSprintStrategy());
+        releaseSprint1.finish();
 
-        // // Try changing the name while in CreatedSprintState
-        // System.out.println("Current Sprint Name: " + sprint.getName());
-        // sprint.setName("Updated Sprint");
-        // System.out.println("Updated Sprint Name: " + sprint.getName());
+        releaseSprint1.raport();
 
-        // // Change state to ActiveSprintState
-        // sprint.setState(new StartedSprintState());
-        // System.out.println("State changed to ActiveSprintState.");
+        releaseSprint1.cancel();
+ 
+        System.out.println("\n----------------");
+        //review
+        reviewSprint1.start();
 
-        // // Try changing the name while in ActiveSprintState
-        // sprint.setName("Another Name");
-        // System.out.println("Final Sprint Name: " + sprint.getName());
+        reviewSprint1.finish();
+
+        reviewSprint1.finalize();
     }
 }

@@ -37,7 +37,7 @@ public class SprintRunner {
         pipeline.addChild(new Step("Deploy", "kubectl apply"));
 
         // Create a sprint with CreatedSprintState
-        Sprint sprint = new Sprint("Initial Sprint", new Date(), new Date(),user, new ReleaseSprintStrategy(pipeline));
+        Sprint sprint = new Sprint("Initial Sprint", new Date(), new Date(),user, new ReleaseSprintStrategy(pipeline), project);
 
         // Try changing the name while in CreatedSprintState
         System.out.println("Current Sprint Name: " + sprint.getName());

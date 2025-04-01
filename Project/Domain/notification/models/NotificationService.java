@@ -37,4 +37,14 @@ public class NotificationService implements IBacklogItemObserver {
 
         scrumMaster.getSenderStrategy().sendNotification(scrumMaster, subject, body);
     }
+
+    public void sendToUser(User toUser, String subject, String body) {
+        toUser.getSenderStrategy().sendNotification(toUser, subject, body);
+    }
+
+    public void sendToMultipleUsers(User[] toUsers, String subject, String body) {
+        for (User user : toUsers) {
+            sendToUser(user, subject, body);
+        }
+    }
 }
