@@ -37,8 +37,7 @@ public class Main {
 
         Project project = new Project(0, "Project", "Making app", user3, null);
 
-        Backlog backlog = new Backlog(1);
-        project.setBacklog(backlog);
+        Backlog backlog = new Backlog(1, project);
 
         Pipeline pipeline = new Pipeline("Release Pipeline");
         pipeline.addChild(new Step("Build", "mvn clean install"));
@@ -56,8 +55,8 @@ public class Main {
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         sprint1.addBacklogItem(bi1);
 
-        bi1.setState(new DoingState());
-        // bi1.setState(new ReadyForTestingState());
+        // bi1.setState(new DoingState());
+        bi1.setState(new ReadyForTestingState());
 
         // ------------------------------------------Section End------------------------------------------
 

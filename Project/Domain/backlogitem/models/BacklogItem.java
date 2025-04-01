@@ -18,6 +18,7 @@ public class BacklogItem {
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
     private ArrayList<Activty> activities = new ArrayList<>();
     private User assignedTo;
+    private Backlog backlog;
     private Sprint sprint; // Coupled when the BacklogItem is assigned to a Sprint
 
     public BacklogItem(Integer id, String title, String description, User assignedTo, Backlog backlog) {
@@ -25,6 +26,7 @@ public class BacklogItem {
         this.title = title;
         this.description = description;
         this.assignedTo = assignedTo;
+        this.backlog = backlog;
 
         addObserver(new NotificationService());
         backlog.addBacklogItem(this);
@@ -131,8 +133,7 @@ public class BacklogItem {
         return sprint.getScrumMaster();
     }
 
-    //TODO: sprint.getTesters(); add in sprint  getTesters
     public User[] getTesters() {
-        return null;
+        return backlog.getTesters();
     }
 }

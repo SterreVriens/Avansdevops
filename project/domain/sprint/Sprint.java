@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import project.domain.backlogitem.models.BacklogItem;
+import project.domain.common.models.Project;
 import project.domain.common.models.User;
 import project.domain.sprint.interfaces.ISprintState;
 import project.domain.sprint.interfaces.ISprintStrategy;
