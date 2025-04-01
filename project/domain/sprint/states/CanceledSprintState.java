@@ -31,8 +31,8 @@ public class CanceledSprintState implements ISprintState {
     }
 
     @Override
-    public void report() {
-        throw new UnsupportedOperationException("Cannot report a canceled sprint.");
+    public void raport() {
+        throw new UnsupportedOperationException("Cannot raport a canceled sprint.");
     }
     
 }

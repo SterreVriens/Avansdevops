@@ -34,9 +34,9 @@ public class FinishedSprintState implements ISprintState {
     }
 
     @Override
-    public void report() {
-        this.sprint.setState(new ReportedSprintState(this.sprint));
-        System.out.println("Sprint " + this.sprint.getName() + " reported.");
+    public void raport() {
+        this.sprint.setState(new raportedSprintState(this.sprint));
+        System.out.println("Sprint " + this.sprint.getName() + "is now ready to be raported.");
     }
     
 }

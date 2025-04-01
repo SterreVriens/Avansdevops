@@ -13,6 +13,21 @@ public class Raport {
         this.footer = footer;
     }
 
+     // Getter voor header
+     public String getHeader() {
+        return header;
+    }
+
+    // Getter voor content
+    public String getContent() {
+        return content;
+    }
+
+    // Getter voor footer
+    public String getFooter() {
+        return footer;
+    }
+
     public void showRaport() {
         System.out.println("===== " + header + " =====");
         System.out.println(content);

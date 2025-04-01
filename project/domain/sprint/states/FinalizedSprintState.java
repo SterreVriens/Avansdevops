@@ -21,7 +21,7 @@ public class FinalizedSprintState implements ISprintState {
     }
 
     @Override
-    public void report() {
+    public void raport() {
         System.out.println("⛔️ Sprint is already finalized.");
     }
 

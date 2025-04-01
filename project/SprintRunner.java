@@ -39,27 +39,36 @@ public class SprintRunner {
         sprint.start();
         System.out.println("State changed to ActiveSprintState.");
 
+        sprint.generateRaport();
+
         sprint.finish();
 
-        // sprint.report();
+        // sprint.raport();
+
+        sprint.generateRaport();
+
+        sprint.exportRaportAsPDF();
+
+        sprint.finalize();
 
         // sprint.setReviewSummery("Review completed successfully.");
 
 
-        sprint.finalize();
-        sprint.finalize();
+        // sprint.finalize();
+        // sprint.finalize();
 
         // sprint.cancel();
 
-        Raport myReport = new RaportBuilder()
-            .setHeader("Sales Report 2024")
-            .setContent("Dit is de inhoud van het rapport...")
-            .setFooter("Einddatum: 31-12-2024")
-            .build();
+        // Raport myraport = new RaportBuilder()
+        //     .setHeader("Sales raport 2024")
+        //     .setContent("Dit is de inhoud van het rapport...")
+        //     .setFooter("Einddatum: 31-12-2024")
+        //     .build();
 
-        // 🔹 Bekijk en exporteer het rapport
-        myReport.showRaport();
-        myReport.exportAsPDF();
-        myReport.exportAsPNG();
+        // // 🔹 Bekijk en exporteer het rapport
+        // myraport.showRaport();
+        // myraport.exportAsPDF();
+        // myraport.exportAsPNG();
+    // }
     }
 }
