@@ -33,7 +33,7 @@ public class StartedSprintState implements ISprintState {
     }
 
     @Override
-    public void report() {
+    public void raport() {
         System.err.println("⛔️ Sprint is not finished yet.");
     }
     

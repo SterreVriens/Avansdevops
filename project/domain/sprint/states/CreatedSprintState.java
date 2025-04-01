@@ -27,8 +27,8 @@ public class CreatedSprintState implements ISprintState
     }
 
     @Override
-    public void report() {
-        // Logic to report the sprint
+    public void raport() {
+        // Logic to raport the sprint
         System.out.println("⛔️ Sprint has not finished yet.");
     }
 

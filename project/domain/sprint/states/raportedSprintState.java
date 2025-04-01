@@ -3,10 +3,10 @@ package project.domain.sprint.states;
 import project.domain.sprint.Sprint;
 import project.domain.sprint.interfaces.ISprintState;
 
-public class ReportedSprintState implements ISprintState {
+public class raportedSprintState implements ISprintState {
     private Sprint sprint;
 
-    public ReportedSprintState(Sprint sprint) {
+    public raportedSprintState(Sprint sprint) {
         this.sprint = sprint;
     }
 
@@ -32,8 +32,8 @@ public class ReportedSprintState implements ISprintState {
     }
 
     @Override
-    public void report() {
-        System.out.println("⛔️ Sprint is already reported.");
+    public void raport() {
+        System.out.println("⛔️ Sprint is already raported.");
     }
     
 }
