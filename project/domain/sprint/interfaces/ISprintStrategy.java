@@ -1,6 +1,8 @@
 package project.domain.sprint.interfaces;
 
-public interface ISprintStrategy {
+import project.domain.sprint.Sprint;
 
+public interface ISprintStrategy {
+    void finalizeSprint(Sprint sprint);
     
 }
