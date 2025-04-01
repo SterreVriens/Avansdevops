@@ -16,6 +16,7 @@ public class Sprint {
     private ISprintState state;
     private User scrumMaster;
     private ISprintStrategy sprintStrategy;
+    private String reviewSummery;
     private ArrayList<BacklogItem> backlogItems = new ArrayList<>();
  
     public Sprint(String name, Date startDate, Date endDate, User scrumMaster, ISprintStrategy sprintStrategy) {
@@ -68,10 +69,31 @@ public class Sprint {
     public ISprintStrategy getSprintStrategy() {
         return this.sprintStrategy;
     }
-
-    //Arraylist control methods fo backlogitems
-    public void addBacklogItem(BacklogItem item){
-        item.setSprint(this);
-        backlogItems.add(item);
-    }
+        //Arraylist control methods fo backlogitems
+        public void addBacklogItem(BacklogItem item){
+            item.setSprint(this);
+            backlogItems.add(item);
+        }
+        public String getReviewSummery() {
+            return reviewSummery;
+        }
+        public void setReviewSummery(String reviewSummery) {
+            this.reviewSummery = reviewSummery;
+        }
+    
+        public void start() {
+            this.state.start();
+        }
+        public void finish() {
+            this.state.finish();
+        }
+        public void report() {
+            this.state.report();
+        }
+        public void finalize() {
+            this.state.finalize();
+        }
+        public void cancel() {
+            this.state.cancel();
+        }
 }
