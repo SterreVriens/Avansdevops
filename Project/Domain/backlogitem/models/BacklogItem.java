@@ -4,53 +4,58 @@ import java.util.ArrayList;
 
 import project.domain.backlogitem.interfaces.IBacklogItemObserver;
 import project.domain.backlogitem.interfaces.IBacklogItemState;
-import project.domain.backlogitem.interfaces.IBacklogItemObserver;
 import project.domain.backlogitem.models.states.ToDoState;
+import project.domain.common.models.Backlog;
 import project.domain.common.models.User;
+import project.domain.notification.models.NotificationService;
+import project.domain.sprint.Sprint;
 
 public class BacklogItem {
-    private String id;
+    private Integer id;
     private String title;
     private String description;
     private IBacklogItemState currentState = new ToDoState();
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
     private ArrayList<Activty> activities = new ArrayList<>();
     private User assignedTo;
+    private Sprint sprint; // Coupled when the BacklogItem is assigned to a Sprint
 
-    public BacklogItem(String id, String title, String description, User assignedTo) {
+    public BacklogItem(Integer id, String title, String description, User assignedTo, Backlog backlog) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.assignedTo = assignedTo;
-    }
 
+        addObserver(new NotificationService());
+        backlog.addBacklogItem(this);
+    }
 
     public void setState(IBacklogItemState state) {
         this.currentState = state;
-        NotifyObservers();
+        notifyObservers();
     }
 
-    public void AddObserver(IBacklogItemObserver observer) {
+    public void addObserver(IBacklogItemObserver observer) {
         observers.add(observer);
     }
 
-    public void DeleteObserver(IBacklogItemObserver observer) {
+    public void deleteObserver(IBacklogItemObserver observer) {
         observers.remove(observer);
     }
 
-    public void NotifyObservers() {
+    public void notifyObservers() {
         for (IBacklogItemObserver observer : observers) {
             observer.Update(this);
         }
     }
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -112,5 +117,22 @@ public class BacklogItem {
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
+    }
+
+    public User getScrumMaster() {
+        return sprint.getScrumMaster();
+    }
+
+    //TODO: sprint.getTesters(); add in sprint  getTesters
+    public User[] getTesters() {
+        return null;
     }
 }

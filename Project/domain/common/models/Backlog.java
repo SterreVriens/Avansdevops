@@ -1,11 +1,12 @@
 package project.domain.common.models;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import project.domain.backlogitem.models.BacklogItem;
 
 public class Backlog {
     private int id;
-    // TODO Add list of backlogitems
-    // private List<Backlog> backlogItems;
+    private ArrayList<BacklogItem> backlogItems = new ArrayList<>();
 
     // Constructor
     public Backlog(int id) {
@@ -19,12 +20,10 @@ public class Backlog {
     public void setId(int id) {
         this.id = id;
     }
-    // TODO Add methods to manage backlog items
-    // Backlog Items
-    // public List<Backlog> getBacklogItems() {
-    //     return backlogItems;
-    // }
-    // public void addBacklogItem(Backlog backlogItem) {
-    //     this.backlogItems.add(backlogItem);
-    // }
+    public ArrayList<BacklogItem> getBacklogItems() {
+        return backlogItems;
+    }
+    public void addBacklogItem(BacklogItem backlogItem) {
+        this.backlogItems.add(backlogItem);
+    }
 }

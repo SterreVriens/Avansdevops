@@ -1,7 +1,7 @@
 package project.domain.sprint;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import project.domain.sprint.interfaces.ISprintState;
 import project.domain.sprint.interfaces.ISprintStrategy;
@@ -16,7 +16,7 @@ public class Sprint {
     private ISprintState state;
     private User scrumMaster;
     private ISprintStrategy sprintStrategy;
-    private List<BacklogItem> backlogItems;
+    private ArrayList<BacklogItem> backlogItems = new ArrayList<>();
  
     public Sprint(String name, Date startDate, Date endDate, User scrumMaster, ISprintStrategy sprintStrategy) {
         this.name = name;
@@ -67,5 +67,11 @@ public class Sprint {
     }
     public ISprintStrategy getSprintStrategy() {
         return this.sprintStrategy;
+    }
+
+    //Arraylist control methods fo backlogitems
+    public void addBacklogItem(BacklogItem item){
+        item.setSprint(this);
+        backlogItems.add(item);
     }
 }

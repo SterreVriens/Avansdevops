@@ -1,24 +1,23 @@
 package project.domain.common.models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Project {
     private int id;
     private String projectName;
     private String description;
     private User productOwner;
-    private List<User> teamMembers;
+    private ArrayList<User> teamMembers = new ArrayList<>();
     private Backlog backlog;
     // TODO: add sprints
     // private Sprint[] sprints;
 
     // Constructor
-    public Project(int id, String projectName, String description, User productOwner, List<User> teamMembers, Backlog backlog) {
+    public Project(int id, String projectName, String description, User productOwner, Backlog backlog) {
         this.id = id;
         this.projectName = projectName;
         this.description = description;
         this.productOwner = productOwner;
-        this.teamMembers = teamMembers;
         this.backlog = backlog;
     }
     // ID
@@ -50,10 +49,10 @@ public class Project {
         this.productOwner = productOwner;
     }
     // Team Members
-    public List<User> getTeamMembers() {
+    public ArrayList<User> getTeamMembers() {
         return teamMembers;
     }
-    public void setTeamMembers(List<User> teamMembers) {
+    public void setTeamMembers(ArrayList<User> teamMembers) {
         this.teamMembers = teamMembers;
     }
     public void addTeamMembers(User u) {
