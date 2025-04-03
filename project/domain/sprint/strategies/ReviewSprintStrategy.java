@@ -25,6 +25,5 @@ public class ReviewSprintStrategy implements ISprintStrategy {
         }
     }
 
-    // Other methods specific to ReviewSprintStrategy can be added here
     
 }
