@@ -1,8 +1,8 @@
-package project.infrastructure.adapters;
+package project.infrastructure.adapters.notifications;
 
 import project.domain.common.models.User;
 import project.domain.notification.interfaces.ISenderStrategy;
-import project.infrastructure.libs.SlackLibrary;
+import project.infrastructure.libs.notifications.SlackLibrary;
 
 public class SlackAdapter implements ISenderStrategy {
     private SlackLibrary slackLibrary;

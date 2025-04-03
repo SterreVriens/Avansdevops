@@ -2,8 +2,8 @@ package project.domain.common.models;
 
 import project.domain.common.enums.UserRole;
 import project.domain.notification.interfaces.ISenderStrategy;
-import project.infrastructure.adapters.EmailAdapter;
-import project.infrastructure.adapters.SlackAdapter;
+import project.infrastructure.adapters.notifications.EmailAdapter;
+import project.infrastructure.adapters.notifications.SlackAdapter;
 
 public class User {
     private String username;
@@ -13,22 +13,22 @@ public class User {
     private UserRole role;
     private ISenderStrategy senderStrategy;
 
-    public User(String username, String password, String email, UserRole role) {
+    public User(String username, String password, String email, UserRole role, ISenderStrategy senderStrategy) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
 
-        senderStrategy = new EmailAdapter();
+        this.senderStrategy = senderStrategy;
     }
-    public User(String username, String password, String email, String slackId, UserRole role) {
+    public User(String username, String password, String email, String slackId, UserRole role, ISenderStrategy senderStrategy) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.slackId = slackId;
         this.role = role;
 
-        senderStrategy = new SlackAdapter();
+        this.senderStrategy = senderStrategy;
     }
 
     public String getUsername() {

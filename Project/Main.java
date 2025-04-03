@@ -19,6 +19,9 @@ import project.domain.common.models.Project;
 import project.domain.common.models.User;
 import project.domain.pipeline.Pipeline;
 import project.domain.pipeline.Step;
+import project.domain.scm.models.Branch;
+import project.domain.scm.models.Commit;
+import project.domain.scm.models.Repository;
 import project.domain.sprint.Sprint;
 import project.domain.sprint.interfaces.ISprintStrategy;
 import project.domain.sprint.states.CreatedSprintState;
@@ -27,17 +30,20 @@ import project.domain.sprint.strategies.ReleaseSprintStrategy;
 import project.domain.sprint.strategies.ReviewSprintStrategy;
 import project.domain.thread.Comment;
 import project.domain.thread.Thread;
+import project.infrastructure.adapters.notifications.EmailAdapter;
+import project.infrastructure.adapters.notifications.SlackAdapter;
+import project.infrastructure.adapters.scm.GitAdapter;
 
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         //region setup
-        User user1 = new User("user1", "123", "user1@example.com", "c33dsds", UserRole.SCRUMMASTER);
-        User user2 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.DEVELOPER);
-        User user3 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER);
-        User user4 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.TESTER);
-        User user5 = new User("user2", "456", "user2@example.com", UserRole.TESTER);
+        User user1 = new User("user1", "123", "user1@example.com", "c33dsds", UserRole.DEVELOPER, new EmailAdapter());
+        User user2 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.DEVELOPER, new EmailAdapter());
+        User user3 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER, new EmailAdapter());
+        User user4 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.TESTER, new EmailAdapter());
+        User user5 = new User("user2", "456", "user2@example.com", UserRole.TESTER, new SlackAdapter());
 
         Project project = new Project(0, "Project", "Making app", user3, null);
 
@@ -62,6 +68,27 @@ public class Main {
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         releaseSprint1.addBacklogItem(bi1);
 
+        project.addRepository("Backend", new GitAdapter());
+        project.addRepository("Frontend", new GitAdapter());
+
+        Repository repo1 = project.getRepositoryByName("Backend");
+        Repository repo2 = project.getRepositoryByName("Frontend");
+
+        repo1.addBranch(new Branch("main", repo1, new GitAdapter()));
+        repo1.addBranch(new Branch("dev", repo1, new GitAdapter()));
+        repo2.addBranch(new Branch("main", repo2, new GitAdapter()));
+
+        Branch branch1 = repo1.getBranchByName("main");
+        Branch branch2 = repo1.getBranchByName("dev");
+        Branch branch3 = repo2.getBranchByName("main");
+
+        branch1.addCommit(new Commit("Initial", bi1, user5));
+        branch1.addCommit(new Commit("Added feature", bi1, user5));
+        branch1.addCommit(new Commit("Fixed bug", bi1, user5));
+        branch2.addCommit(new Commit("Initial", bi1, user5));
+        branch3.addCommit(new Commit("Initial", bi1, user5));
+        branch3.addCommit(new Commit("Added feature", bi1, user5));
+        
         //region NotifyOnStateChange
 
         // bi1.setState(new DoingState());
@@ -70,16 +97,16 @@ public class Main {
         //region Threads
 
 
-        bi1.addThread(new Thread("Problem"));
-        bi1.addThread(new Thread("Fixxing guide"));
+        // bi1.addThread(new Thread("Problem"));
+        // bi1.addThread(new Thread("Fixxing guide"));
 
-        bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
-        bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
-        bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
 
-        bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
+        // bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
 
-        bi1.printThreads();
+        // bi1.printThreads();
 
         //region Pipeline notifications
         

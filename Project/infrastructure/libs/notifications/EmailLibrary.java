@@ -1,4 +1,4 @@
-package project.infrastructure.libs;
+package project.infrastructure.libs.notifications;
 
 public class EmailLibrary {
     public void sendEmail(String subject, String body, String recipient) {
