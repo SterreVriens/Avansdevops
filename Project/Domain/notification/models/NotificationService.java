@@ -33,7 +33,10 @@ public class NotificationService implements IBacklogItemObserver {
         String body = "The backlog item " + item.getTitle() + " is now ready for testing.";
         User scrumMaster = item.getScrumMaster();
         
-        //TODO: Check if the scrumMaster is null
+        if (scrumMaster == null) {
+            System.out.println("Scrum Master is not assigned to this backlog item.");
+            return;
+        }
 
         scrumMaster.getSenderStrategy().sendNotification(scrumMaster, subject, body);
     }

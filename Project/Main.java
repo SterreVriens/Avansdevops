@@ -25,11 +25,14 @@ import project.domain.sprint.states.CreatedSprintState;
 import project.domain.sprint.states.StartedSprintState;
 import project.domain.sprint.strategies.ReleaseSprintStrategy;
 import project.domain.sprint.strategies.ReviewSprintStrategy;
+import project.domain.thread.Comment;
+import project.domain.thread.Thread;
 
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
+        //region setup
         User user1 = new User("user1", "123", "user1@example.com", "c33dsds", UserRole.SCRUMMASTER);
         User user2 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.DEVELOPER);
         User user3 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER);
@@ -56,30 +59,46 @@ public class Main {
         project.addTeamMembers(user4);
         project.addTeamMembers(user5);
 
-        // ------------------------------------------Section NotifyOnStateChange------------------------------------------
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         releaseSprint1.addBacklogItem(bi1);
+
+        //region NotifyOnStateChange
 
         // bi1.setState(new DoingState());
         // bi1.setState(new ReadyForTestingState());
 
-        // ------------------------------------------Section End------------------------------------------
+        //region Threads
+
+
+        bi1.addThread(new Thread("Problem"));
+        bi1.addThread(new Thread("Fixxing guide"));
+
+        bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
+        bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
+        bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
+
+        bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
+
+        bi1.printThreads();
+
+        //region Pipeline notifications
         
-        //Release
-        releaseSprint1.start();
+        // //Release
+        // releaseSprint1.start();
 
-        releaseSprint1.finish();
+        // releaseSprint1.finish();
 
-        releaseSprint1.raport();
+        // releaseSprint1.raport();
 
-        releaseSprint1.cancel();
+        // releaseSprint1.cancel();
  
-        System.out.println("\n----------------");
-        //review
-        reviewSprint1.start();
+        // System.out.println("\n----------------");
 
-        reviewSprint1.finish();
+        // //review
+        // reviewSprint1.start();
 
-        reviewSprint1.finalize();
+        // reviewSprint1.finish();
+
+        // reviewSprint1.finalize();
     }
 }
