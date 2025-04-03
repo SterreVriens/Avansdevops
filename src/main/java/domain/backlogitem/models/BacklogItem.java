@@ -30,7 +30,7 @@ public class BacklogItem {
         this.assignedTo = assignedTo;
         this.backlog = backlog;
 
-        addObserver(new NotificationService());
+        addObserver(new StateNotifier());
         backlog.addBacklogItem(this);
     }
 

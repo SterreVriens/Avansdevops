@@ -1,4 +1,4 @@
-package  domain.sprintraport;
+package domain.sprintraport;
 
 public class Raport {
     private String header;
