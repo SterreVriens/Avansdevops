@@ -9,6 +9,7 @@ import project.domain.common.models.Backlog;
 import project.domain.common.models.User;
 import project.domain.notification.models.NotificationService;
 import project.domain.sprint.Sprint;
+import project.domain.thread.Thread;
 
 public class BacklogItem {
     private Integer id;
@@ -17,6 +18,7 @@ public class BacklogItem {
     private IBacklogItemState currentState = new ToDoState();
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
     private ArrayList<Activty> activities = new ArrayList<>();
+    private ArrayList<Thread> threads = new ArrayList<>();
     private User assignedTo;
     private Backlog backlog;
     private Sprint sprint; // Coupled when the BacklogItem is assigned to a Sprint
@@ -51,71 +53,57 @@ public class BacklogItem {
         }
     }
 
-
     public Integer getId() {
         return id;
     }
-
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-
     public String getTitle() {
         return title;
     }
-
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-
     public String getDescription() {
         return description;
     }
-
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-
     public IBacklogItemState getCurrentState() {
         return currentState;
     }
-
 
     public void setCurrentState(IBacklogItemState currentState) {
         this.currentState = currentState;
     }
 
-
     public ArrayList<IBacklogItemObserver> getObservers() {
         return observers;
     }
-
 
     public void setObservers(ArrayList<IBacklogItemObserver> observers) {
         this.observers = observers;
     }
 
-
     public ArrayList<Activty> getActivities() {
         return activities;
     }
-
 
     public void setActivities(ArrayList<Activty> activities) {
         this.activities = activities;
     }
 
-
     public User getAssignedTo() {
         return assignedTo;
     }
-
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
@@ -135,5 +123,30 @@ public class BacklogItem {
 
     public User[] getTesters() {
         return backlog.getTesters();
+    }
+
+    public void printThreads() {
+        for (int i = 0; i < threads.size(); i++) {
+            System.out.println("\nIndex of thread: " + i);
+            threads.get(i).print();
+            System.out.println();
+        }
+    }
+
+    public void addThread(Thread thread) {
+        threads.add(thread);
+    }
+
+    public void removeThread(Thread thread) {
+        threads.remove(thread);
+    }
+
+    public Thread getThreadByTitle(String title) {
+        for (Thread thread : threads) {
+            if (thread.getTitle().equals(title)) {
+                return thread;
+            }
+        }
+        return null;
     }
 }
