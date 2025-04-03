@@ -3,6 +3,8 @@ package project.domain.common.models;
 import java.util.ArrayList;
 
 import project.domain.common.enums.UserRole;
+import project.domain.scm.interfaces.ISCMAdapter;
+import project.domain.scm.models.Repository;
 
 public class Project {
     private int id;
@@ -11,6 +13,7 @@ public class Project {
     private User productOwner;
     private ArrayList<User> teamMembers = new ArrayList<>();
     private Backlog backlog;
+    private ArrayList<Repository> repositories = new ArrayList<>();
     // TODO: add sprints
     // private Sprint[] sprints;
 
@@ -89,5 +92,19 @@ public class Project {
             }
         }
         return testers.toArray(new User[0]);
+    }
+    public void addRepository(String name, ISCMAdapter scmAdapter) {
+        this.repositories.add(new Repository(name, scmAdapter));
+    }
+    public ArrayList<Repository> getRepositories() {
+        return repositories;
+    }
+    public Repository getRepositoryByName(String name) {
+        for (Repository repo : repositories) {
+            if (repo.getName().equals(name)) {
+                return repo;
+            }
+        }
+        return null;
     }
 }

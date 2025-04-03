@@ -1,8 +1,8 @@
-package project.infrastructure.adapters;
+package project.infrastructure.adapters.notifications;
 
 import project.domain.common.models.User;
 import project.domain.notification.interfaces.ISenderStrategy;
-import project.infrastructure.libs.EmailLibrary;
+import project.infrastructure.libs.notifications.EmailLibrary;
 
 public class EmailAdapter implements ISenderStrategy {
     private EmailLibrary emailLibrary = new EmailLibrary();

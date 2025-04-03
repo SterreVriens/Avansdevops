@@ -1,4 +1,4 @@
-package project.infrastructure.libs;
+package project.infrastructure.libs.notifications;
 
 public class SlackLibrary {
     public void sendMessage(String message, String channel) {
