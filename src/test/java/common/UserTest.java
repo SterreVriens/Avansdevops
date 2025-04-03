@@ -1,29 +1,14 @@
 package  common;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
-
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 
 import  domain.common.enums.UserRole;
 import  domain.common.models.User;
-import  domain.notification.interfaces.ISenderStrategy;
 import infrastructure.adapters.notifications.EmailAdapter;
 import infrastructure.adapters.notifications.SlackAdapter;
 
 class UserTest {
-    private ISenderStrategy slackAdapterMock;
-    private ISenderStrategy emailAdapterMock;
-
-    @BeforeEach
-    void setUp() {
-        slackAdapterMock = mock(SlackAdapter.class);
-        emailAdapterMock = mock(EmailAdapter.class);
-    }
 
     // TC-46: Gebruiker maakt account aan met Slack ID
     @Test
