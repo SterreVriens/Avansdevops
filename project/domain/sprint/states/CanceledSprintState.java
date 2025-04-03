@@ -1,5 +1,6 @@
 package project.domain.sprint.states;
 
+import project.domain.common.models.User;
 import project.domain.sprint.Sprint;
 import project.domain.sprint.interfaces.ISprintState;
 
@@ -8,6 +9,10 @@ public class CanceledSprintState implements ISprintState {
 
     public CanceledSprintState(Sprint sprint) {
         this.sprint = sprint;
+
+        String subject = "Sprint Canceled";
+        String message = "Sprint " + sprint.getName() + " has been canceled.";
+        this.sprint.sendNotification(sprint.getScrumMaster(), subject, message);
     }
 
     @Override
