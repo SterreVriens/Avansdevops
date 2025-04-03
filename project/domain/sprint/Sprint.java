@@ -178,4 +178,5 @@ public class Sprint {
         // Exporteer het rapport als PNG
         this.raport.exportAsPNG();
     }
+
 }
