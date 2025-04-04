@@ -37,6 +37,10 @@ jobs:
       - name: Build and test with JaCoCo
         run: mvn clean verify
 
+      - name: Install dependencies
+        run: mvn install
+
+
       # SonarCloud analyse uitvoeren
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
@@ -47,6 +51,6 @@ jobs:
             -Dsonar.projectKey=SterreVriens_Avansdevops
             -Dsonar.organization=sterrevriens
             -Dsonar.java.binaries=target/classes
-            -Dsonar.java.libraries=target/dependency
+            -Dsonar.java.libraries=sonar.java.libraries=/home/runner/work/Avansdevops/Avansdevops/target/dependency
             -Dsonar.surefire.reportsPath=target/surefire-reports
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
