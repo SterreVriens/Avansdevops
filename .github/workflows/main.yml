@@ -27,9 +27,9 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # Stap 3: Project bouwen met Maven
-      - name: Build project with Maven
-        run: mvn compile -f pom.xml
+      # Stap 3: Project bouwen en testen met Maven
+      - name: Build and test project with Maven
+        run: mvn clean test
 
       # Stap 4: SonarCloud Scan uitvoeren
       - name: SonarQube Scan
@@ -39,3 +39,4 @@ jobs:
         with:
           args: >
             -Dsonar.java.binaries=target/classes
+            -Dsonar.surefire.reportsPath=target/surefire-reports
