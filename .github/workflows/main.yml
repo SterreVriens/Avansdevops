@@ -25,21 +25,17 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # Dependencies kopiëren naar target/dependency
+      # Kopieer dependencies naar target/dependency
       - name: Copy dependencies
         run: mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
 
-      # 🔍 Debug stap: check of de dependency map bestaat
-      - name: List contents of target directory (debug)
-        run: ls -R target
+      # Debug stap om inhoud van target directory te controleren
+      - name: Debug dependencies directory
+        run: ls -R target || echo "Target directory does not exist"
 
       # Build & test & coverage genereren
       - name: Build and test with JaCoCo
         run: mvn clean verify
-
-      - name: Install dependencies
-        run: mvn install
-
 
       # SonarCloud analyse uitvoeren
       - name: SonarCloud Scan
@@ -51,6 +47,6 @@ jobs:
             -Dsonar.projectKey=SterreVriens_Avansdevops
             -Dsonar.organization=sterrevriens
             -Dsonar.java.binaries=target/classes
-            -Dsonar.java.libraries=sonar.java.libraries=/home/runner/work/Avansdevops/Avansdevops/target/dependency
+            -Dsonar.java.libraries=target/dependency
             -Dsonar.surefire.reportsPath=target/surefire-reports
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
