@@ -26,15 +26,21 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      # Stap 3: Project bouwen (zorg ervoor dat je build-tool correct wordt gebruikt)
-      - name: Build project
-        run: ./mvn compile # Gebruik 'mvn compile' als je Maven gebruikt
+      # Stap 3: Maven instellen
+      - name: Set up Maven
+        uses: actions/setup-maven@v1
+        with:
+          maven-version: '3.9.6' # Kies een recente Maven versie
 
-      # Stap 4: SonarCloud Scan uitvoeren
+      # Stap 4: Project bouwen met Maven
+      - name: Build project with Maven
+        run: mvn compile
+
+      # Stap 5: SonarCloud Scan uitvoeren
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.java.binaries=build/classes/java/main # Pas dit pad aan op basis van jouw projectstructuur
+            -Dsonar.java.binaries=target/classes
