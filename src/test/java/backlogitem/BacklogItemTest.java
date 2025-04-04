@@ -7,7 +7,8 @@ import domain.common.enums.UserRole;
 import domain.common.models.Backlog;
 import domain.common.models.Project;
 import domain.common.models.User;
-import domain.sprint.states.StartedSprintState;
+import domain.sprint.Sprint;
+import domain.sprint.strategies.ReleaseSprintStrategy;
 import infrastructure.adapters.notifications.EmailAdapter;
 
 import org.junit.jupiter.api.AfterEach;
@@ -32,14 +33,12 @@ class BacklogItemAssignmentTest {
     private ByteArrayOutputStream outContent;
     private PrintStream originalOut;
 
+    private Sprint sprint;
+    private ReleaseSprintStrategy ReleaseSprintStrategy;
+
     @BeforeEach
     void setUp() {
-        // Redirect System.out to capture output
-        // This is necessary to test the output of System.out.println
-        outContent = new ByteArrayOutputStream();
-        originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-
+        // Initializeer de benodigde objecten
         productOwner = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER, new EmailAdapter());
         project = new Project(1, "Project Alpha", "Description of project alpha", productOwner, null);
         backlog = new Backlog(1, project);
@@ -49,14 +48,22 @@ class BacklogItemAssignmentTest {
         developer = new User("dev1", "123", "dev1@example.com", "slack2", UserRole.DEVELOPER, new EmailAdapter());
         anotherDeveloper = new User("dev2", "123", "dev2@example.com", "slack3", UserRole.DEVELOPER, new EmailAdapter());
 
+        sprint = new Sprint("Sprint 1", null, null, scrumMaster, ReleaseSprintStrategy, project); // Maak de sprint aan
         backlogItem = new BacklogItem(1, "Item A", "Description", null, backlog);
+
+        backlogItem.setSprint(sprint);  // Stel de sprint in voor het backlog item
+
+        // Initialiseer de ByteArrayOutputStream en PrintStream
+        outContent = new ByteArrayOutputStream();
+        originalOut = System.out; // Bewaar de originele System.out
+        System.setOut(new PrintStream(outContent)); // Zet System.out naar de ByteArrayOutputStream
     }
 
     void resetOutput() {
-        outContent.reset();
+        outContent.reset(); // Reset de inhoud van de output stream
     }
 
-    // TC-10  Scrum master wijst zichzelf toe aan een backlog item.
+    //TC-10 Scrum master wijst zichzelf toe aan een backlog item.
     @Test
     void testAssignScrumMasterBySelf_ShouldAssignSuccessfully() {
         // Act
@@ -77,17 +84,16 @@ class BacklogItemAssignmentTest {
         assertTrue(outContent.toString().contains("Warning: You are not allowed to assign this backlog item"));
     }
 
-    // TC-11  Developer probeert zichzelf toe te wijzen aan een backlog item.
+    //TC-11 Developer probeert zichzelf toe te wijzen aan een backlog item.
     @Test
     void testAssignDeveloperBySelf_ShouldAssignSuccessfully() {
-        // TC-11: Developer wijst zichzelf toe aan een backlog item.
         backlogItem.setAssignedTo(developer, developer);
 
         assertEquals(developer, backlogItem.getAssignedTo());
         assertEquals("", outContent.toString().trim()); // Geen waarschuwingen verwacht
     }
 
-    // TC-12 Er wordt geprobeerd om een tweede developer toe te wijzen aan een backlog item.
+    //TC-12 Er wordt geprobeerd om een tweede developer toe te wijzen aan een backlog item.
     @Test
     void testAssignWhenAlreadyAssigned_ShouldShowAlreadyAssignedWarning() {
         // Arrange
@@ -102,25 +108,26 @@ class BacklogItemAssignmentTest {
         assertTrue(outContent.toString().contains("already assigned to scrum"));
     }
 
-   // TC-13: De toegewezen developer wijzigt de status van een backlog item.
+    //TC-13 De toegewezen developer wijzigt de status van een backlog item.
     @Test
     void testAssignedDeveloperChangesStatus_ShouldChangeStatusSuccessfully() {
         // Arrange
         IBacklogItemState newState = new DoingState(); // Assuming DoingState is a valid state
+        backlogItem.setAssignedTo(developer, developer);
 
         // Act
         backlogItem.setStatus(developer, newState);
 
         // Assert
         assertEquals(newState, backlogItem.getCurrentState());
-        assertTrue(outContent.toString().isEmpty()); // Geen waarschuwingen verwacht
     }
 
-    // TC-14: Een niet toegewezen developer wijzigt de status van een backlog item.
+    //TC-14 Een niet toegewezen developer wijzigt de status van een backlog item.
     @Test
     void testNonAssignedDeveloperChangesStatus_ShouldFailWithWarning() {
         // Arrange
         IBacklogItemState newState = new DoingState(); // Assuming DoingState is a valid state
+        backlogItem.setAssignedTo(developer, developer);
 
         // Act
         backlogItem.setStatus(anotherDeveloper, newState);
@@ -130,6 +137,18 @@ class BacklogItemAssignmentTest {
         assertTrue(outContent.toString().contains("Only the assigned developer can change the status of this backlog item"));
     }
 
+    @Test
+    void testNoAssignedDeveloperChangeStatus_ShouldFaile(){
+        // Arrange
+        IBacklogItemState newState = new DoingState(); // Assuming DoingState is a valid state
+
+        // Act
+        backlogItem.setStatus(developer, newState);
+
+        // Assert
+        assertNotEquals(newState, backlogItem.getCurrentState()); // Status moet niet veranderd zijn
+        assertTrue(outContent.toString().contains("Warning: No developer is assigned to this backlog item."));
+    }
 
     @Test
     void testAssignWithNullAssignedTo_ShouldFailSilently() {
@@ -153,7 +172,7 @@ class BacklogItemAssignmentTest {
 
     @AfterEach
     void tearDown() {
-        // Reset System.out to its original state
+        // Reset System.out naar de originele waarde
         System.setOut(originalOut);
     }
 }

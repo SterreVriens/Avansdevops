@@ -100,6 +100,10 @@ public class Sprint {
         backlogItems.add(item);
     }
 
+    public ArrayList<BacklogItem> getBacklogItems() {
+        return this.backlogItems;
+    }
+
     public String getReviewSummery() {
         return reviewSummery;
     }

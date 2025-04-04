@@ -24,7 +24,7 @@ class ProjectTest {
     }
     
 
-    // TC-01: Aanmaken van een nieuw project met geldige invoer
+    // TC-01 Aanmaken van een nieuw project met geldige invoer
     @Test
     void testCreateProjectWithValidInput() {
 
@@ -36,7 +36,7 @@ class ProjectTest {
         assertEquals(productOwner, project.getProductOwner());
     }
 
-    // TC-02: Aanmaken van een project met ongeldige invoer
+    // TC-02 Aanmaken van een project met ongeldige invoer
     @Test
     void testCreateProjectWithInvalidInput() {
         // Arrange
@@ -52,7 +52,7 @@ class ProjectTest {
         assertEquals("", invalidProject.getProjectName());
     }
 
-    // TC-03: Wijzigingen in projectgegevens
+    // TC-03 Wijzigingen in projectgegevens
     @Test
     void testUpdateProjectDetails() {
         // Act
@@ -64,7 +64,7 @@ class ProjectTest {
         assertEquals("Updated description", project.getDescription());
     }
 
-    // TC-04: Toevoegen van een nieuw teamlid aan een project
+    // TC-04 Toevoegen van een nieuw teamlid aan een project
     @Test
     void testAddTeamMember() {
         // Arrange

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import  domain.common.enums.UserRole;
 import  domain.scm.interfaces.ISCMAdapter;
 import  domain.scm.models.Repository;
+import domain.sprint.Sprint;
 
 public class Project {
     private int id;
@@ -14,8 +15,7 @@ public class Project {
     private ArrayList<User> teamMembers = new ArrayList<>();
     private Backlog backlog;
     private ArrayList<Repository> repositories = new ArrayList<>();
-    // TODO: add sprints
-    // private Sprint[] sprints;
+    private ArrayList<Sprint> sprints = new ArrayList<>();
 
     // Constructor
     public Project(int id, String projectName, String description, User productOwner, Backlog backlog) {
@@ -73,6 +73,14 @@ public class Project {
 
     public void addTeamMembers(User u) {
         this.teamMembers.add(u);
+    }
+
+    public void setSprints(Sprint sprints) {
+        this.sprints.add(sprints);
+    }
+
+    public ArrayList<Sprint> getSprints() {
+        return sprints;
     }
 
     // Backlog

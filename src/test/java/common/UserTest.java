@@ -10,7 +10,7 @@ import infrastructure.adapters.notifications.SlackAdapter;
 
 class UserTest {
 
-    // TC-46: Gebruiker maakt account aan met Slack ID
+    // TC-46 Gebruiker maakt account aan met Slack ID
     @Test
     void testUserWithSlackId_ShouldUseSlackAdapter() {
         // Arrange: Creëer een gebruiker met een Slack ID en SlackAdapter
@@ -22,7 +22,7 @@ class UserTest {
         assertTrue(user.getSenderStrategy() instanceof SlackAdapter, "User met Slack ID moet SlackAdapter gebruiken");
     }
 
-    // TC-47: Gebruiker maakt account aan zonder Slack ID
+    // TC-47 Gebruiker maakt account aan zonder Slack ID
     @Test
     void testUserWithoutSlackId_ShouldUseEmailAdapter() {
         // Arrange: Creëer een gebruiker zonder Slack ID en met EmailAdapter

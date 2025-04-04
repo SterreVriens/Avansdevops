@@ -61,6 +61,7 @@ public class Main {
 
         //TODO: ? Dit geeft een ready for testing melding ??
         bi1.setStatus(user2, new DoingState());
+       System.out.println( bi1.getCurrentState());
         // bi1.setStatus(user2, new ReadyForTestingState());
 
         //region GIT
