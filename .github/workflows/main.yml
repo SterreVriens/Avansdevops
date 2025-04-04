@@ -13,20 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Stap 1: Repository uitchecken
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Stap 2: JDK instellen en Maven cache inschakelen
       - name: Set up JDK and Maven
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven' # Activeert caching voor Maven dependencies
+          cache: 'maven'
 
+      # Stap 3: Project bouwen met Maven
       - name: Build project with Maven
-        run: mvn compile
+        run: mvn compile -f pom.xml
 
+      # Stap 4: SonarCloud Scan uitvoeren
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.java.binaries=target/classes # Pad naar gecompileerde klassen
+            -Dsonar.java.binaries=target/classes
