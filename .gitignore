@@ -1,9 +1,0 @@
-target/
-target/.*
-/target
-/target/*
-/target/classes
-.class
-/.class
-*.class
-target/classes/domain/backlogitem/models/StateNotifier.class
