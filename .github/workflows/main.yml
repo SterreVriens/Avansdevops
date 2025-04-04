@@ -13,18 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Stap 1: Repository uitchecken
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
+      # Stap 2: JDK instellen
       - name: Set up JDK 21
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: '21'
 
+      # Stap 3: Project bouwen (zorg ervoor dat je build-tool correct wordt gebruikt)
+      - name: Build project
+        run: ./mvn compile # Gebruik 'mvn compile' als je Maven gebruikt
+
+      # Stap 4: SonarCloud Scan uitvoeren
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.java.binaries=build/classes/java/main # Pas dit pad aan op basis van jouw projectstructuur
