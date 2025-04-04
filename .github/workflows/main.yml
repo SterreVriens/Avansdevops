@@ -13,13 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Stap 1: Repository uitchecken
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Stap 2: JDK instellen en Maven cache inschakelen
       - name: Set up JDK and Maven
         uses: actions/setup-java@v3
         with:
@@ -27,15 +25,19 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # Stap 3: Dependencies kopiëren (voor sonar.java.libraries)
+      # Dependencies kopiëren naar target/dependency
       - name: Copy dependencies
         run: mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
 
-      # Stap 4: Build, test, en coverage genereren
+      # 🔍 Debug stap: check of de dependency map bestaat
+      - name: List contents of target directory (debug)
+        run: ls -R target
+
+      # Build & test & coverage genereren
       - name: Build and test with JaCoCo
         run: mvn clean verify
 
-      # Stap 5: SonarCloud analyse uitvoeren
+      # SonarCloud analyse uitvoeren
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
