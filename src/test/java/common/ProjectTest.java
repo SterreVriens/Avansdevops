@@ -27,11 +27,8 @@ class ProjectTest {
     // TC-01: Aanmaken van een nieuw project met geldige invoer
     @Test
     void testCreateProjectWithValidInput() {
-        // Arrange: Een geldig project wordt al aangemaakt in de setUp-methode.
 
-        // Act: De projectgegevens worden gecontroleerd tijdens de asserties.
-
-        // Assert: Verifieer of het project correct is aangemaakt
+        // Assert
         assertNotNull(project);
         assertEquals(1, project.getId());
         assertEquals("Project Alpha", project.getProjectName());
@@ -42,33 +39,27 @@ class ProjectTest {
     // TC-02: Aanmaken van een project met ongeldige invoer
     @Test
     void testCreateProjectWithInvalidInput() {
-        // Arrange: Test met een null projectnaam
+        // Arrange
         Project invalidProject = new Project(1, null, "Description", productOwner, backlog);
 
-        // Act: De projectnaam wordt gecontroleerd.
-
-        // Assert: Verifieer dat de projectnaam null is wanneer deze niet geldig is
+        // Assert
         assertNull(invalidProject.getProjectName());
 
-        // Arrange: Test met een lege projectnaam
+        // Arrange
         invalidProject = new Project(1, "", "Description", productOwner, backlog);
 
-        // Act: De projectnaam wordt gecontroleerd.
-
-        // Assert: Verifieer dat de projectnaam leeg is
+        // Assert
         assertEquals("", invalidProject.getProjectName());
     }
 
     // TC-03: Wijzigingen in projectgegevens
     @Test
     void testUpdateProjectDetails() {
-        // Arrange: De projectgegevens zijn al ingesteld tijdens de setUp-methode.
-
-        // Act: Wijzig de projectnaam en beschrijving.
+        // Act
         project.setProjectName("Updated Project Alpha");
         project.setDescription("Updated description");
 
-        // Assert: Controleer of de wijzigingen correct zijn doorgevoerd.
+        // Assert
         assertEquals("Updated Project Alpha", project.getProjectName());
         assertEquals("Updated description", project.getDescription());
     }
@@ -76,13 +67,13 @@ class ProjectTest {
     // TC-04: Toevoegen van een nieuw teamlid aan een project
     @Test
     void testAddTeamMember() {
-        // Arrange: Een nieuw teamlid wordt aangemaakt.
+        // Arrange
         User newMember = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.TESTER, new EmailAdapter());
 
-        // Act: Voeg het nieuwe teamlid toe aan het project.
+        // Act
         project.addTeamMembers(newMember);
 
-        // Assert: Verifieer dat het teamlid correct is toegevoegd aan het project.
+        // Assert
         assertTrue(project.getTeamMembers().contains(newMember));
     }
 }

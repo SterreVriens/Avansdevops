@@ -6,3 +6,4 @@ target/.*
 .class
 /.class
 *.class
+target/classes/domain/backlogitem/models/StateNotifier.class
