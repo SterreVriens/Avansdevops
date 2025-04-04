@@ -13,13 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Stap 1: Repository uitchecken
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Stap 2: JDK instellen en Maven cache inschakelen
       - name: Set up JDK and Maven
         uses: actions/setup-java@v3
         with:
@@ -27,16 +25,32 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # Stap 3: Project bouwen en testen met Maven
-      - name: Build and test project with Maven
-        run: mvn clean test
+      # Dependencies kopiëren naar target/dependency
+      - name: Copy dependencies
+        run: mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
 
-      # Stap 4: SonarCloud Scan uitvoeren
-      - name: SonarQube Scan
+      # 🔍 Debug stap: check of de dependency map bestaat
+      - name: List contents of target directory (debug)
+        run: ls -R target
+
+      # Build & test & coverage genereren
+      - name: Build and test with JaCoCo
+        run: mvn clean verify
+
+      - name: Install dependencies
+        run: mvn install
+
+
+      # SonarCloud analyse uitvoeren
+      - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
+            -Dsonar.projectKey=SterreVriens_Avansdevops
+            -Dsonar.organization=sterrevriens
             -Dsonar.java.binaries=target/classes
+            -Dsonar.java.libraries=sonar.java.libraries=/home/runner/work/Avansdevops/Avansdevops/target/dependency
             -Dsonar.surefire.reportsPath=target/surefire-reports
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
