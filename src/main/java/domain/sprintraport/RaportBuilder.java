@@ -1,4 +1,4 @@
-package  domain.sprintraport;
+package domain.sprintraport;
 
 public class RaportBuilder {
     private String header = "default header";

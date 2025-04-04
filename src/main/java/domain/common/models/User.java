@@ -2,8 +2,6 @@ package  domain.common.models;
 
 import  domain.common.enums.UserRole;
 import  domain.notification.interfaces.ISenderStrategy;
-import  infrastructure.adapters.notifications.EmailAdapter;
-import  infrastructure.adapters.notifications.SlackAdapter;
 
 public class User {
     private String username;

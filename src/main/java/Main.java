@@ -11,21 +11,19 @@
 import java.util.Date;
 
 import  domain.backlogitem.models.BacklogItem;
+import domain.backlogitem.models.states.DoingState;
+import domain.backlogitem.models.states.ReadyForTestingState;
 import  domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.Project;
 import  domain.common.models.User;
 import  domain.pipeline.Pipeline;
 import  domain.pipeline.Step;
-import  domain.scm.models.Branch;
-import  domain.scm.models.Commit;
-import  domain.scm.models.Repository;
 import  domain.sprint.Sprint;
 import  domain.sprint.strategies.ReleaseSprintStrategy;
 import  domain.sprint.strategies.ReviewSprintStrategy;
 import  infrastructure.adapters.notifications.EmailAdapter;
 import  infrastructure.adapters.notifications.SlackAdapter;
-import  infrastructure.adapters.scm.GitAdapter;
 
 public class Main {
     public static void main(String[] args) {
@@ -59,31 +57,34 @@ public class Main {
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         releaseSprint1.addBacklogItem(bi1);
 
-        project.addRepository("Backend", new GitAdapter());
-        project.addRepository("Frontend", new GitAdapter());
+        //region GIT
+        // project.addRepository("Backend", new GitAdapter());
+        // project.addRepository("Frontend", new GitAdapter());
 
-        Repository repo1 =  project.getRepositoryByName("Backend");
-        Repository repo2 =  project.getRepositoryByName("Frontend");
+        // Repository repo1 =  project.getRepositoryByName("Backend");
+        // Repository repo2 =  project.getRepositoryByName("Frontend");
 
-        repo1.addBranch(new Branch("main", repo1, new GitAdapter()));
-        repo1.addBranch(new Branch("dev", repo1, new GitAdapter()));
-        repo2.addBranch(new Branch("main", repo2, new GitAdapter()));
+        // repo1.addBranch(new Branch("main", repo1, new GitAdapter()));
+        // repo1.addBranch(new Branch("dev", repo1, new GitAdapter()));
+        // repo2.addBranch(new Branch("main", repo2, new GitAdapter()));
 
-        Branch branch1 = repo1.getBranchByName("main");
-        Branch branch2 = repo1.getBranchByName("dev");
-        Branch branch3 = repo2.getBranchByName("main");
+        // Branch branch1 = repo1.getBranchByName("main");
+        // Branch branch2 = repo1.getBranchByName("dev");
+        // Branch branch3 = repo2.getBranchByName("main");
 
-        branch1.addCommit(new Commit("Initial", bi1, user5));
-        branch1.addCommit(new Commit("Added feature", bi1, user5));
-        branch1.addCommit(new Commit("Fixed bug", bi1, user5));
-        branch2.addCommit(new Commit("Initial", bi1, user5));
-        branch3.addCommit(new Commit("Initial", bi1, user5));
-        branch3.addCommit(new Commit("Added feature", bi1, user5));
+        // branch1.addCommit(new Commit("Initial", bi1, user5));
+        // branch1.addCommit(new Commit("Added feature", bi1, user5));
+        // branch1.addCommit(new Commit("Fixed bug", bi1, user5));
+        // branch2.addCommit(new Commit("Initial", bi1, user5));
+        // branch3.addCommit(new Commit("Initial", bi1, user5));
+        // branch3.addCommit(new Commit("Added feature", bi1, user5));
 
         //region NotifyOnStateChange
 
         // bi1.setState(new DoingState());
         // bi1.setState(new ReadyForTestingState());
+
+
 
         //region Threads
 

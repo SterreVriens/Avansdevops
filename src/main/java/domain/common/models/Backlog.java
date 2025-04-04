@@ -32,6 +32,6 @@ public class Backlog {
     }
 
     public User[] getTesters() {
-        return this. getTesters();
+        return this.project.getTesters();
     }
 }
