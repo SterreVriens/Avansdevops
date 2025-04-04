@@ -27,16 +27,24 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # Stap 3: Project bouwen en testen met Maven
-      - name: Build and test project with Maven
-        run: mvn clean test
+      # Stap 3: Dependencies kopiëren (voor sonar.java.libraries)
+      - name: Copy dependencies
+        run: mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
 
-      # Stap 4: SonarCloud Scan uitvoeren
-      - name: SonarQube Scan
+      # Stap 4: Build, test, en coverage genereren
+      - name: Build and test with JaCoCo
+        run: mvn clean verify
+
+      # Stap 5: SonarCloud analyse uitvoeren
+      - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
+            -Dsonar.projectKey=SterreVriens_Avansdevops
+            -Dsonar.organization=sterrevriens
             -Dsonar.java.binaries=target/classes
+            -Dsonar.java.libraries=target/dependency
             -Dsonar.surefire.reportsPath=target/surefire-reports
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
