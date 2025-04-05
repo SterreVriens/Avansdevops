@@ -1,4 +1,4 @@
-package  domain.thread;
+package  domain.thread.models;
 
 public class Comment extends ThreadComponent {
     private String text;

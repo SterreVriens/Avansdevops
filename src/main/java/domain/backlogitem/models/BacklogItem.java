@@ -9,7 +9,7 @@ import  domain.common.models.Backlog;
 import  domain.common.models.User;
 import  domain.notification.models.NotificationService;
 import  domain.sprint.Sprint;
-import  domain.thread.Thread;
+import domain.thread.models.Thread;
 
 public class BacklogItem {
     private Integer id;
@@ -148,5 +148,8 @@ public class BacklogItem {
             }
         }
         return null;
+    }
+    public Backlog getBacklog() {
+        return backlog;
     }
 }

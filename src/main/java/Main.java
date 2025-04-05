@@ -17,6 +17,8 @@ import  domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.Project;
 import  domain.common.models.User;
+import domain.thread.models.Comment;
+import  domain.thread.models.Thread;
 import  domain.pipeline.Pipeline;
 import  domain.pipeline.Step;
 import  domain.sprint.Sprint;
@@ -89,14 +91,14 @@ public class Main {
         //region Threads
 
 
-        // bi1.addThread(new Thread("Problem"));
-        // bi1.addThread(new Thread("Fixxing guide"));
+        bi1.addThread(new Thread("Problem", bi1));
+        bi1.addThread(new Thread("Fixxing guide", bi1));
 
-        // bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
-        // bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
-        // bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
+        bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
+        bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
+        bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
 
-        // bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
+        bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
 
         // bi1.printThreads();
 
