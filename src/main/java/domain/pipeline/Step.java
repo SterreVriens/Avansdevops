@@ -12,7 +12,6 @@ public class Step extends PipelineComponent {
     @Override
     public void performRun() {
         System.out.println("Executing step: " + name + " with command: " + command);
-        // Hier kun je logica toevoegen om het daadwerkelijke commando uit te voeren
     }
     
 }

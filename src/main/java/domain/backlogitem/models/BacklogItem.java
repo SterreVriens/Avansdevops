@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import  domain.backlogitem.interfaces.IBacklogItemObserver;
 import  domain.backlogitem.interfaces.IBacklogItemState;
 import  domain.backlogitem.models.states.ToDoState;
+import domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.User;
 import  domain.notification.models.NotificationService;
@@ -15,7 +16,7 @@ public class BacklogItem {
     private Integer id;
     private String title;
     private String description;
-    private IBacklogItemState currentState = new ToDoState();
+    private IBacklogItemState currentState;
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
     private ArrayList<Activty> activities = new ArrayList<>();
     private ArrayList<Thread> threads = new ArrayList<>();
@@ -29,15 +30,26 @@ public class BacklogItem {
         this.description = description;
         this.assignedTo = assignedTo;
         this.backlog = backlog;
+        this.currentState = new ToDoState();
 
         addObserver(new StateNotifier());
         backlog.addBacklogItem(this);
     }
 
-    public void setState(IBacklogItemState state) {
+    public void setStatus(User user, IBacklogItemState state) {
+        if (this.assignedTo == null) {
+            System.out.println("Warning: No developer is assigned to this backlog item.");
+            return;
+        }
+        if (!this.assignedTo.equals(user)) {
+            System.out.println("Warning: Only the assigned developer can change the status of this backlog item.");
+            return;
+        }
+
         this.currentState = state;
         notifyObservers();
     }
+    
 
     public void addObserver(IBacklogItemObserver observer) {
         observers.add(observer);
@@ -105,9 +117,22 @@ public class BacklogItem {
         return assignedTo;
     }
 
-    public void setAssignedTo(User assignedTo) {
+    public void setAssignedTo(User assignedTo, User assigner) {
+        // Geef een waarschuwing als het backlog item al is toegewezen
+        if (this.assignedTo != null) {
+            System.out.println("Warning: This BacklogItem is already assigned to " + this.assignedTo.getUsername() + ".");
+            return;
+        }
+        // Controleer of de toegewezene dezelfde is als degene die toewijst
+        // Scrum Masters en Developers mogen zichzelf toewijzen
+        if (assignedTo != assigner || 
+            (assignedTo.getRole() != UserRole.SCRUMMASTER && assignedTo.getRole() != UserRole.DEVELOPER)) {
+            System.out.println("Warning: You are not allowed to assign this backlog item");
+            return;
+        }
         this.assignedTo = assignedTo;
     }
+    
 
     public Sprint getSprint() {
         return sprint;

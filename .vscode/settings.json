@@ -7,5 +7,6 @@
         "c:\\Users\\Sterre\\Documents\\GitHub\\Avansdevops\\lib\\mockito-core-5.5.0.jar",
         "c:\\Users\\Sterre\\Documents\\GitHub\\Avansdevops\\lib\\hamcrest-core-1.3.jar",
         "c:\\Users\\Sterre\\Documents\\GitHub\\Avansdevops\\lib\\junit-4.13.2.jar"
-    ]
+    ],
+    "FSharp.suggestGitignore": false
 }

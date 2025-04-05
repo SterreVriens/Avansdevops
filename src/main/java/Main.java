@@ -59,6 +59,13 @@ public class Main {
         BacklogItem bi1 = new BacklogItem(1, "Item1", "Description of item 1", user2, backlog);
         releaseSprint1.addBacklogItem(bi1);
 
+        bi1.setAssignedTo(user1,user1);
+
+        //TODO: ? Dit geeft een ready for testing melding ??
+        bi1.setStatus(user2, new DoingState());
+       System.out.println( bi1.getCurrentState());
+        // bi1.setStatus(user2, new ReadyForTestingState());
+
         //region GIT
         // project.addRepository("Backend", new GitAdapter());
         // project.addRepository("Frontend", new GitAdapter());
