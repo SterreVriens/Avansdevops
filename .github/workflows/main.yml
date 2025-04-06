@@ -1,0 +1,52 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK and Maven
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      # Kopieer dependencies naar target/dependency
+      - name: Copy dependencies
+        run: mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
+
+      # Debug stap om inhoud van target directory te controleren
+      - name: Debug dependencies directory
+        run: ls -R target || echo "Target directory does not exist"
+
+      # Build & test & coverage genereren
+      - name: Build and test with JaCoCo
+        run: mvn clean verify
+
+      # SonarCloud analyse uitvoeren
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=SterreVriens_Avansdevops
+            -Dsonar.organization=sterrevriens
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.java.libraries=target/dependency
+            -Dsonar.surefire.reportsPath=target/surefire-reports
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml

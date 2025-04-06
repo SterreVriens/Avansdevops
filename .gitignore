@@ -1,9 +1,7 @@
-target/
-target/.*
-/target
-/target/*
-/target/classes
-.class
-/.class
-*.class
-target/classes/domain/backlogitem/models/StateNotifier.class
+target/classes
+target/test-classes
+target/maven-archiver
+target/maven-status
+target/surefire-reports
+target/generated-sources
+target/generated-test-sources
