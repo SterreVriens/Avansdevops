@@ -9,8 +9,9 @@ import domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.User;
 import  domain.notification.models.NotificationService;
+import domain.scm.models.Commit;
 import  domain.sprint.Sprint;
-import  domain.thread.Thread;
+import domain.thread.models.Thread;
 
 public class BacklogItem {
     private Integer id;
@@ -18,8 +19,9 @@ public class BacklogItem {
     private String description;
     private IBacklogItemState currentState;
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
-    private ArrayList<Activty> activities = new ArrayList<>();
+    private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Thread> threads = new ArrayList<>();
+    private ArrayList<Commit> commits = new ArrayList<>();
     private User assignedTo;
     private Backlog backlog;
     private Sprint sprint; // Coupled when the BacklogItem is assigned to a Sprint
@@ -94,6 +96,7 @@ public class BacklogItem {
     }
 
     public void setCurrentState(IBacklogItemState currentState) {
+        notifyObservers();
         this.currentState = currentState;
     }
 
@@ -105,16 +108,27 @@ public class BacklogItem {
         this.observers = observers;
     }
 
-    public ArrayList<Activty> getActivities() {
+    public ArrayList<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(ArrayList<Activty> activities) {
+    public void setActivities(ArrayList<Activity> activities) {
         this.activities = activities;
+    }
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
     }
 
     public User getAssignedTo() {
         return assignedTo;
+    }
+
+    public void addCommit(Commit commit) {
+        commits.add(commit);
+    }
+    public ArrayList<Commit> getCommits() {
+        return commits;
     }
 
     public void setAssignedTo(User assignedTo, User assigner) {
@@ -173,5 +187,8 @@ public class BacklogItem {
             }
         }
         return null;
+    }
+    public Backlog getBacklog() {
+        return backlog;
     }
 }

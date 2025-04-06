@@ -8,6 +8,6 @@ public class EmailAdapter implements ISenderStrategy {
     private EmailLibrary emailLibrary = new EmailLibrary();
 
     public void sendNotification(User toUser, String subject, String body) {
-        emailLibrary.sendEmail(toUser.getEmail(), subject, body);
+        emailLibrary.sendEmail(subject, body, toUser.getEmail());
     }
 }

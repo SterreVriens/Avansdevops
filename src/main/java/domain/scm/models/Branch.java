@@ -24,6 +24,11 @@ public class Branch {
     public ArrayList<Commit> getCommits() {
         return commits;
     }
+    public void printCommits() {
+        for (Commit commit : commits) {
+            System.out.println(commit.getMessage());
+        }
+    }
     public void addCommit(Commit commit) {
         scmAdapter.createCommit(commit, this, this.repo);
         this.commits.add(commit);

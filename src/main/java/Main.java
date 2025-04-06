@@ -17,6 +17,8 @@ import  domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.Project;
 import  domain.common.models.User;
+import domain.thread.models.Comment;
+import  domain.thread.models.Thread;
 import  domain.pipeline.Pipeline;
 import  domain.pipeline.Step;
 import  domain.sprint.Sprint;
@@ -89,15 +91,15 @@ public class Main {
         //region NotifyOnStateChange
 
         // bi1.setState(new DoingState());
-        // bi1.setState(new ReadyForTestingState());
-
+        bi1.setStatus(user2, new ReadyForTestingState());
+        System.out.println(bi1.getCurrentState());
 
 
         //region Threads
 
 
-        // bi1.addThread(new Thread("Problem"));
-        // bi1.addThread(new Thread("Fixxing guide"));
+        // bi1.addThread(new Thread("Problem", bi1));
+        // bi1.addThread(new Thread("Fixxing guide", bi1));
 
         // bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
         // bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
