@@ -1,11 +1,17 @@
 package sprint;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+import java.util.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import domain.backlogitem.models.BacklogItem;
 import domain.common.enums.UserRole;
 import domain.common.models.Backlog;
 import domain.common.models.Project;
@@ -13,19 +19,8 @@ import domain.common.models.User;
 import domain.sprint.Sprint;
 import domain.sprint.states.CreatedSprintState;
 import domain.sprint.states.FinalizedSprintState;
-import domain.sprint.states.raportedSprintState;
 import domain.sprint.strategies.ReviewSprintStrategy;
 import infrastructure.adapters.notifications.EmailAdapter;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.Arrays;
-import java.util.Date;
 
 public class ReviewSprintTest {
     private User productOwner;
@@ -79,10 +74,10 @@ public class ReviewSprintTest {
         reviewSprint.start();
         reviewSprint.finish();
         reviewSprint.setReviewSummery("Default Review Summary");
-        reviewSprint.finalize();
+        reviewSprint. finalized();
 
         // Assert
-        assertTrue(reviewSprint.getState() instanceof FinalizedSprintState);
+        assertTrue(reviewSprint.getState() instanceof  FinalizedSprintState);
     }
 
     // TC-22 Een sprint van het type review kan worden aangemaakt
@@ -118,7 +113,7 @@ public class ReviewSprintTest {
         // Act
         spy.start();
         spy.finish();
-        spy.finalize();
+        spy. finalized();
 
         // Capture the arguments passed to sendNotification
         ArgumentCaptor<User[]> sendToCaptor = ArgumentCaptor.forClass(User[].class);

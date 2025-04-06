@@ -8,7 +8,6 @@ import  domain.backlogitem.models.states.ToDoState;
 import domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.User;
-import  domain.notification.models.NotificationService;
 import domain.scm.models.Commit;
 import  domain.sprint.Sprint;
 import domain.thread.models.Thread;

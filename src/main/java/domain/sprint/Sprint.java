@@ -130,8 +130,8 @@ public class Sprint {
         this.state.raport();
     }
 
-    public void finalize() {
-        this.state.finalize();
+    public void  finalized() {
+        this.state. finalized();
     }
 
     public void cancel() {
