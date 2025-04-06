@@ -12,6 +12,8 @@ public class Commit {
         this.message = message;
         this.backlogItem = backlogItem;
         this.author = author;
+
+        backlogItem.addCommit(this);
     }
     
     public String getMessage() {

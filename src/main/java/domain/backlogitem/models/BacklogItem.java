@@ -9,6 +9,7 @@ import domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.User;
 import  domain.notification.models.NotificationService;
+import domain.scm.models.Commit;
 import  domain.sprint.Sprint;
 import domain.thread.models.Thread;
 
@@ -20,6 +21,7 @@ public class BacklogItem {
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
     private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Thread> threads = new ArrayList<>();
+    private ArrayList<Commit> commits = new ArrayList<>();
     private User assignedTo;
     private Backlog backlog;
     private Sprint sprint; // Coupled when the BacklogItem is assigned to a Sprint
@@ -120,6 +122,13 @@ public class BacklogItem {
 
     public User getAssignedTo() {
         return assignedTo;
+    }
+
+    public void addCommit(Commit commit) {
+        commits.add(commit);
+    }
+    public ArrayList<Commit> getCommits() {
+        return commits;
     }
 
     public void setAssignedTo(User assignedTo, User assigner) {
