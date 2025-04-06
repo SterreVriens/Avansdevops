@@ -26,7 +26,7 @@ public class CanceledSprintState implements ISprintState {
     }
 
     @Override
-    public void finalize() {
+    public void finalized() {
         throw new UnsupportedOperationException("Cannot finalize a canceled sprint.");
     }
 

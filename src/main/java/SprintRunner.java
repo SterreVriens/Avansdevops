@@ -59,7 +59,7 @@ public class SprintRunner {
         // sprint.generateRaport();
 
         sprint.finish(); // hier binnen wordt zoals in de sprint klasse staat de finalize van de release strategy aangeroepe die de pipeline start
-        sprint.finalize();
+        sprint.finalized();
 
         // sprint.raport();
 

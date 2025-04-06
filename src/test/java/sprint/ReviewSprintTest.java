@@ -79,7 +79,7 @@ public class ReviewSprintTest {
         reviewSprint.start();
         reviewSprint.finish();
         reviewSprint.setReviewSummery("Default Review Summary");
-        reviewSprint.finalize();
+        reviewSprint.finalized();
 
         // Assert
         assertTrue(reviewSprint.getState() instanceof FinalizedSprintState);
@@ -118,7 +118,7 @@ public class ReviewSprintTest {
         // Act
         spy.start();
         spy.finish();
-        spy.finalize();
+        spy.finalized();
 
         // Capture the arguments passed to sendNotification
         ArgumentCaptor<User[]> sendToCaptor = ArgumentCaptor.forClass(User[].class);

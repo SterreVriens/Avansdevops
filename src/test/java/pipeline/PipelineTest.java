@@ -48,7 +48,7 @@ public class PipelineTest {
     void testPipelineCreation() {
         // Assert – naam van de pipeline en presence van steps checken via finalize output
         sprint.finish(); // zet naar review
-        sprint.finalize(); // triggert de pipeline
+        sprint.finalized(); // triggert de pipeline
 
         String consoleOutput = output.toString();
         assertTrue(consoleOutput.contains("Starting pipeline: Release Pipeline"));
@@ -63,7 +63,7 @@ public class PipelineTest {
     void testPipelineRunsOnReleaseSprint() {
         // Act – simulate finalize phase
         sprint.finish();
-        sprint.finalize();
+        sprint.finalized();
 
         // Assert
         String consoleOutput = output.toString();
@@ -76,7 +76,7 @@ public class PipelineTest {
     void testRealtimeStatusUpdatesDuringPipeline() {
         // Act
         sprint.finish();
-        sprint.finalize();
+        sprint.finalized();
 
         // Assert
         String consoleOutput = output.toString();

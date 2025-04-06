@@ -33,7 +33,7 @@ public class CreatedSprintState implements ISprintState
     }
 
     @Override
-    public void finalize() {
+    public void finalized() {
         // Logic to finalize the sprint
         System.out.println("⛔️ Sprint has not finished yet.");
     }

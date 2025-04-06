@@ -22,7 +22,7 @@ public class raportedSprintState implements ISprintState {
     }
 
     @Override
-    public void finalize() {
+    public void finalized() {
         this.sprint.getSprintStrategy().finalizeSprint(this.sprint);
     }
 
