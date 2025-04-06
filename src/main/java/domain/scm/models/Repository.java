@@ -17,12 +17,6 @@ public class Repository {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public ArrayList<Branch> getBranches() {
-        return branches;
-    }
     public void addBranch(Branch branch) {
         scmAdapter.createBranch(branch, this);
         this.branches.add(branch);
