@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avans devopst</a> &gt; <a href="index.source.html" class="el_package">domain.common.models</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package  domain.common.models;
+
+import  domain.common.enums.UserRole;
+import  domain.notification.interfaces.ISenderStrategy;
+
+public class User {
+    private String username;
+    private String password;
+    private String email;
+    private String slackId;
+    private UserRole role;
+    private ISenderStrategy senderStrategy;
+
+<span class="fc" id="L14">    public User(String username, String password, String email, UserRole role, ISenderStrategy senderStrategy) {</span>
+<span class="fc" id="L15">        this.username = username;</span>
+<span class="fc" id="L16">        this.password = password;</span>
+<span class="fc" id="L17">        this.email = email;</span>
+<span class="fc" id="L18">        this.role = role;</span>
+
+<span class="fc" id="L20">        this.senderStrategy = senderStrategy;</span>
+<span class="fc" id="L21">    }</span>
+<span class="fc" id="L22">    public User(String username, String password, String email, String slackId, UserRole role, ISenderStrategy senderStrategy) {</span>
+<span class="fc" id="L23">        this.username = username;</span>
+<span class="fc" id="L24">        this.password = password;</span>
+<span class="fc" id="L25">        this.email = email;</span>
+<span class="fc" id="L26">        this.slackId = slackId;</span>
+<span class="fc" id="L27">        this.role = role;</span>
+
+<span class="fc" id="L29">        this.senderStrategy = senderStrategy;</span>
+<span class="fc" id="L30">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L33">        return username;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="nc" id="L37">        this.username = username;</span>
+<span class="nc" id="L38">    }</span>
+
+    public String getPassword() {
+<span class="nc" id="L41">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="nc" id="L45">        this.password = password;</span>
+<span class="nc" id="L46">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L49">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="nc" id="L53">        this.email = email;</span>
+<span class="nc" id="L54">    }</span>
+
+    public String getSlackId() {
+<span class="fc" id="L57">        return slackId;</span>
+    }
+
+    public void setSlackId(String slackId) {
+<span class="nc" id="L61">        this.slackId = slackId;</span>
+<span class="nc" id="L62">    }</span>
+
+    public UserRole getRole() {
+<span class="fc" id="L65">        return role;</span>
+    }
+
+    public void setRole(UserRole role) {
+<span class="nc" id="L69">        this.role = role;</span>
+<span class="nc" id="L70">    }</span>
+    
+    public ISenderStrategy getSenderStrategy() {
+<span class="fc" id="L73">        return senderStrategy;</span>
+    }
+
+    public void setSenderStrategy(ISenderStrategy senderStrategy) {
+<span class="nc" id="L77">        this.senderStrategy = senderStrategy;</span>
+<span class="nc" id="L78">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
