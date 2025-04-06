@@ -91,21 +91,21 @@ public class Main {
         //region NotifyOnStateChange
 
         // bi1.setState(new DoingState());
-        // bi1.setState(new ReadyForTestingState());
-
+        bi1.setStatus(user2, new ReadyForTestingState());
+        System.out.println(bi1.getCurrentState());
 
 
         //region Threads
 
 
-        bi1.addThread(new Thread("Problem", bi1));
-        bi1.addThread(new Thread("Fixxing guide", bi1));
+        // bi1.addThread(new Thread("Problem", bi1));
+        // bi1.addThread(new Thread("Fixxing guide", bi1));
 
-        bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
-        bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
-        bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("There is a defect with the item", "Programmer12", "2023-10-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("I will fix it", "Senior Programmer15", "2023-11-01"));
+        // bi1.getThreadByTitle("Problem").addChild(new Comment("Tnx", "Programmer12", "2023-11-01"));
 
-        bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
+        // bi1.getThreadByTitle("Fixxing guide").addChild(new Comment("I fixxed it", "Senior Programmer15", "2023-12-01"));
 
         // bi1.printThreads();
 

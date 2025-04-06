@@ -30,8 +30,26 @@ public class Backlog {
         return backlogItems;
     }
 
+    public BacklogItem getBacklogItemById(int id) {
+        for (BacklogItem backlogItem : backlogItems) {
+            if (backlogItem.getId() == id) {
+                return backlogItem;
+            }
+        }
+        return null;
+    }
+
     public void addBacklogItem(BacklogItem backlogItem) {
         this.backlogItems.add(backlogItem);
+    }
+
+    public void removeBacklogItem(int id) {
+        for (BacklogItem backlogItem : backlogItems) {
+            if (backlogItem.getId() == id) {
+                this.backlogItems.remove(backlogItem);
+                break;
+            }
+        }
     }
 
     public User[] getTesters() {

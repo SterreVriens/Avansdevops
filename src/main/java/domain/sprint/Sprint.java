@@ -94,6 +94,10 @@ public class Sprint {
         return this.sprintStrategy;
     }
 
+    public void setSprintStrategy(ISprintStrategy sprintStrategy) {
+        this.sprintStrategy = sprintStrategy;
+    }
+
     // Arraylist control methods fo backlogitems
     public void addBacklogItem(BacklogItem item) {
         item.setSprint(this);

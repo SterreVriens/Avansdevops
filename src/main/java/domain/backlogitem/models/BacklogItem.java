@@ -18,7 +18,7 @@ public class BacklogItem {
     private String description;
     private IBacklogItemState currentState;
     private ArrayList<IBacklogItemObserver> observers = new ArrayList<>();
-    private ArrayList<Activty> activities = new ArrayList<>();
+    private ArrayList<Activity> activities = new ArrayList<>();
     private ArrayList<Thread> threads = new ArrayList<>();
     private User assignedTo;
     private Backlog backlog;
@@ -94,6 +94,7 @@ public class BacklogItem {
     }
 
     public void setCurrentState(IBacklogItemState currentState) {
+        notifyObservers();
         this.currentState = currentState;
     }
 
@@ -105,12 +106,16 @@ public class BacklogItem {
         this.observers = observers;
     }
 
-    public ArrayList<Activty> getActivities() {
+    public ArrayList<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(ArrayList<Activty> activities) {
+    public void setActivities(ArrayList<Activity> activities) {
         this.activities = activities;
+    }
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
     }
 
     public User getAssignedTo() {

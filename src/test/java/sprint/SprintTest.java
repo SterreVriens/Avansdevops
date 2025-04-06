@@ -92,6 +92,7 @@ class SprintTest {
         assertTrue(allSprintsInProject.stream().anyMatch(sprint -> sprint.getReviewSummery().equals("Sprint 1 Goal: Complete feature A")), "Sprint 1 goal should be displayed.");
         assertTrue(allSprintsInProject.stream().anyMatch(sprint -> sprint.getReviewSummery().equals("Sprint 2 Goal: Implement user stories for B")), "Sprint 2 goal should be displayed.");
     }
-
+    // TC-26 Een release sprint wordt afgerond, met een niet werkende pipeline.
+    // De scrum master en product owner krijgen een notificatie van de niet correcte afsluiting.
 
 }
