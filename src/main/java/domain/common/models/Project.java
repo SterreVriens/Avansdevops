@@ -31,10 +31,6 @@ public class Project {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     // Project Name
     public String getProjectName() {
         return projectName;
@@ -58,17 +54,9 @@ public class Project {
         return productOwner;
     }
 
-    public void setProductOwner(User productOwner) {
-        this.productOwner = productOwner;
-    }
-
     // Team Members
     public ArrayList<User> getTeamMembers() {
         return teamMembers;
-    }
-
-    public void setTeamMembers(ArrayList<User> teamMembers) {
-        this.teamMembers = teamMembers;
     }
 
     public void addTeamMembers(User u) {
