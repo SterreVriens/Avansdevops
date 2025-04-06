@@ -17,7 +17,7 @@ public class CommentNotifier implements IThreadObserver {
     public void update(ThreadComponent component, Thread thread) {
         if (component instanceof Comment) {
             Comment comment = (Comment) component;
-            String subject = comment.getAuthor() + " commented";
+            String subject = comment.getAuthor().getUsername() + " commented";
             String body = '"' + comment.getText() + '"' + "\nOn: " + comment.getDate();
             User[] teamMembers = thread.getBacklogItem().getBacklog().getProject().getTeamMembers()
                     .toArray(new User[0]);

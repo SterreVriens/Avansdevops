@@ -3,17 +3,24 @@ package domain.thread.models;
 import java.util.ArrayList;
 
 import domain.backlogitem.models.BacklogItem;
+import domain.backlogitem.models.states.FinalizedState;
+import domain.common.models.User;
 import domain.thread.interfaces.IThreadObserver;
 
 public class Thread extends ThreadComponent {
     private ArrayList<ThreadComponent> children = new ArrayList<>();
     private ArrayList<IThreadObserver> observers = new ArrayList<>();
     private String title;
+    private String description;
     private BacklogItem backlogItem;
+    private User owner;
 
-    public Thread(String title, BacklogItem backlogItem) {
+    public Thread(String title, String description, BacklogItem backlogItem, User owner) {
         this.title = title;
+        this.description = description;
         this.backlogItem = backlogItem;
+        this.owner = owner;
+
         addObserver(new CommentNotifier());
     }
 
@@ -21,7 +28,34 @@ public class Thread extends ThreadComponent {
         return title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setTitle(String title, User initiator) {
+        if(initiator.equals(owner)) {
+            this.title = title;
+        } else {
+            System.out.println("Only the owner can change the title.");
+        }
+    }
+
+    public void setDescription(String description, User initiator) {
+        if(initiator.equals(owner)) {
+            this.description = description;
+        } else {
+            System.out.println("Only the owner can change the description.");
+        }
+    }
+    
     public void addChild(ThreadComponent component) {
+        if(backlogItem.getCurrentState() instanceof FinalizedState) {
+            System.out.println("Cannot add comments to a finalized backlog item.");
+            return;
+        }
         notifyObservers(component);
         children.add(component);
     }
