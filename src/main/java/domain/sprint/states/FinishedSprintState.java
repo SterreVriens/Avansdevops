@@ -12,7 +12,7 @@ public class FinishedSprintState implements ISprintState {
 
     @Override
     public void start() {
-        System.out.println("⛔️ Sprint is already finished.");
+        System.out.println("⛔️Sprint cannot start. Sprint is already finished.");
     }
 
     @Override
@@ -25,18 +25,18 @@ public class FinishedSprintState implements ISprintState {
     public void finalized() {
         
         this.sprint.getSprintStrategy().finalizeSprint(this.sprint);
-        System.out.println("Sprint " + this.sprint.getName() + " finalized.");
+        System.out.println("sprint " + this.sprint.getName() + " finalized.");
     }
 
     @Override
     public void finish() {
-        System.out.println("⛔️ Sprint is already finished.");
+        System.out.println("⛔️Sprint cannot finish. Sprint is already finished.");
     }
 
     @Override
     public void raport() {
         this.sprint.setState(new raportedSprintState(this.sprint));
-        System.out.println("Sprint " + this.sprint.getName() + "is now ready to be raported.");
+        System.out.println(" Sprint " + this.sprint.getName() + "is now ready to be raported.");
     }
     
 }

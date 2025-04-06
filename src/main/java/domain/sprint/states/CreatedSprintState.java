@@ -15,7 +15,7 @@ public class CreatedSprintState implements ISprintState
     public void start() {
         // Logic to start the sprint
         this.sprint.setState(new StartedSprintState(this.sprint));
-        System.out.println("Sprint "+ sprint.getName()+" started.");
+        System.out.println("sprint "+ sprint.getName()+" started.");
     }
 
     @Override
@@ -29,20 +29,20 @@ public class CreatedSprintState implements ISprintState
     @Override
     public void raport() {
         // Logic to raport the sprint
-        System.out.println("⛔️ Sprint has not finished yet.");
+        System.out.println("⛔️ Sprint has  not finished yet.");
     }
 
     @Override
     public void finalized() {
         // Logic to finalize the sprint
-        System.out.println("⛔️ Sprint has not finished yet.");
+        System.out.println("⛔️ Sprint has not finished yet!");
     }
 
     @Override
     public void cancel() {
         // Logic to cancel the sprint
         this.sprint.setState(new CanceledSprintState(this.sprint));
-        System.out.println("Sprint "+ sprint.getName()+" canceled.");
+        System.out.println("Sprint  "+ sprint.getName()+" canceled.");
     }	
     
 }

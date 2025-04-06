@@ -158,7 +158,7 @@ public class Sprint {
 
     public void modifyRaport(String newHeader, String newContent, String newFooter) {
         if (this.raport == null) {
-            System.err.println("No report has been generated yet. Please generate a report first.");
+            System.err.println("No report has been generated yet . Please generate a report first.");
             return;
         }
 
@@ -175,7 +175,7 @@ public class Sprint {
 
     public void exportRaportAsPDF() {
         if (this.raport == null) {
-            System.err.println("No report has been generated yet. Please generate a report first.");
+            System.err.println("No report has been generated  yet. Please generate a report first.");
             return;
         }
 
@@ -185,7 +185,7 @@ public class Sprint {
 
     public void exportRaportAsPNG() {
         if (this.raport == null) {
-            System.err.println("No report has been generated yet. Please generate a report first.");
+            System.err.println("No report has been generated yet. Please generate a report first!");
             return;
         }
 

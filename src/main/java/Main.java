@@ -31,10 +31,10 @@ public class Main {
     public static void main(String[] args) {
         //region setup
         User user1 = new User("user1", "123", "user1@example.com", "c33dsds", UserRole.DEVELOPER, new EmailAdapter());
-        User user2 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.DEVELOPER, new EmailAdapter());
-        User user3 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER, new EmailAdapter());
-        User user4 = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.TESTER, new EmailAdapter());
-        User user5 = new User("user2", "456", "user2@example.com", UserRole.TESTER, new SlackAdapter());
+        User user2 = new User("user2", "456", "user2@example.com", "a12brc34", UserRole.DEVELOPER, new EmailAdapter());
+        User user3 = new User("user3", "456", "user3@example.com", "a1d2bc34", UserRole.PRODUCTOWNER, new EmailAdapter());
+        User user4 = new User("user4", "456", "user4@example.com", "a12bfc34", UserRole.TESTER, new EmailAdapter());
+        User user5 = new User("user5", "456", "user5@example.com", UserRole.TESTER, new SlackAdapter());
 
         Project project = new Project(0, "Project", "Making app", user3, null);
 
