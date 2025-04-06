@@ -8,7 +8,7 @@ import  domain.scm.models.Repository;
 import  infrastructure.libs.scm.GitLibrary;
 
 public class GitAdapter implements ISCMAdapter{
-    private GitLibrary gitLibrary;
+    protected GitLibrary gitLibrary;
 
     public GitAdapter(){
         this.gitLibrary = new GitLibrary();

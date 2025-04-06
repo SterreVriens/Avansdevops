@@ -26,6 +26,8 @@ import domain.scm.models.Branch;
 import domain.scm.models.Repository;
 import domain.scm.models.Commit;
 import infrastructure.adapters.notifications.EmailAdapter;
+import infrastructure.adapters.scm.GitAdapter;
+import infrastructure.libs.scm.GitLibrary;
 
 public class SCMTest {
 
@@ -38,24 +40,45 @@ public class SCMTest {
 
     private ByteArrayOutputStream outContent;
     private PrintStream originalOut;
+    private GitAdapter gitAdapter;
+    private GitLibrary gitLibraryMock;
+    private User author;
+    private Repository repository;
+    private Branch branch;
+    private Commit commit;
+    
 
     @BeforeEach
-    void setUp() {
-        productOwner = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER,
-                new EmailAdapter());
-        developer = new User("dev1", "123", "dev1@example.com", "slack2", UserRole.DEVELOPER, new EmailAdapter());
-        project = new Project(1, "Project Alpha", "Description of project alpha", productOwner, null);
-        backlog = new Backlog(1, project); // Now pass the fully initialized project
-        backlogItem = new BacklogItem(1, "Backlog Item 1", "Description of backlog item 1", developer, backlog);
-        project.setBacklog(backlog); // Associate backlog with the project
-        mocked_scmAdapter = mock(ISCMAdapter.class);
+void setUp() {
+    // Setup zoals al aanwezig
+    productOwner = new User("user2", "456", "user2@example.com", "a12bc34", UserRole.PRODUCTOWNER, new EmailAdapter());
+    developer = new User("dev1", "123", "dev1@example.com", "slack2", UserRole.DEVELOPER, new EmailAdapter());
+    project = new Project(1, "Project Alpha", "Description of project alpha", productOwner, null);
+    backlog = new Backlog(1, project);
+    backlogItem = new BacklogItem(1, "Backlog Item 1", "Description of backlog item 1", developer, backlog);
+    project.setBacklog(backlog);
+    mocked_scmAdapter = mock(ISCMAdapter.class);
 
-        // Initialiseer de ByteArrayOutputStream en PrintStream
-        outContent = new ByteArrayOutputStream();
-        originalOut = System.out; // Bewaar de originele System.out
-        System.setOut(new PrintStream(outContent)); // Zet System.out naar de ByteArrayOutputStream
+    // Output opvangen
+    outContent = new ByteArrayOutputStream();
+    originalOut = System.out;
+    System.setOut(new PrintStream(outContent));
 
-    }
+    // ✅ Extra: Setup voor concrete GitAdapter tests
+    gitLibraryMock = mock(GitLibrary.class);
+    gitAdapter = new GitAdapter() {
+        {
+            this.gitLibrary = gitLibraryMock; // Inject de mock GitLibrary
+        }
+    };
+
+    // ✅ Dummy data voor GitAdapter tests
+    author = developer;
+    repository = new Repository("Repo1", gitAdapter);
+    branch = new Branch("main", repository, gitAdapter);
+    commit = new Commit("Initial commit", backlogItem, author);
+}
+
 
     void resetOutput() {
         outContent.reset(); // Reset de inhoud van de output stream
@@ -182,6 +205,18 @@ public class SCMTest {
         // Assert
         assertTrue(outContent.toString().contains("Initial commit"));
         assertTrue(outContent.toString().contains("Second commit"));
+    }
+    
+    @Test
+    void testCreateBranch_ShouldCallGitLibrary() {
+        gitAdapter.createBranch(branch, repository);
+        verify(gitLibraryMock).createBranch("main", "Repo1");
+    }
+
+    @Test
+    void testCreateCommit_ShouldCallGitLibrary() {
+        gitAdapter.createCommit(commit, branch, repository);
+        verify(gitLibraryMock).commit("Initial commit", "dev1", "main", "Repo1");
     }
     
     @AfterEach
