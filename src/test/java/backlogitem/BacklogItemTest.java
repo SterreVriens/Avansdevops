@@ -4,6 +4,7 @@ import domain.backlogitem.interfaces.IBacklogItemState;
 import domain.backlogitem.models.Activity;
 import domain.backlogitem.models.BacklogItem;
 import domain.backlogitem.models.states.DoingState;
+import domain.backlogitem.models.states.DoneState;
 import domain.backlogitem.models.states.ReadyForTestingState;
 import domain.common.enums.UserRole;
 import domain.common.models.Backlog;
@@ -259,6 +260,39 @@ class BacklogItemAssignmentTest {
         assertEquals(newState, backlogItem.getCurrentState());
         assertTrue(outContent.toString().contains("Backlog Item Ready for Testing"));
     }
+
+    //TC-50 BacklogItem kan alleen maar done zijn als alle onderliggende activiteiten ook klaar zijn
+    @Test
+    void testSetStateToDone_ShouldFailIfActivitiesNotDone() {
+        // Arrange
+        backlogItem.setAssignedTo(developer, developer);
+        IBacklogItemState doneState = new DoneState(); // Assuming DoneState is a valid state
+
+        // Act
+        backlogItem.setStatus(developer, doneState);
+
+        // Assert
+        assertNotEquals(doneState, backlogItem.getCurrentState()); // Status moet niet veranderd zijn
+        assertTrue(outContent.toString().contains("Cannot set state to Done. Not all activities are done."));
+    }
+    @Test
+    void testSetStateToDone_ShouldChangeSuccessfully() {
+        // Arrange
+        backlogItem.setAssignedTo(developer, developer);
+        IBacklogItemState doneState = new DoneState(); // Assuming DoneState is a valid state
+
+        // Set all activities to done
+        for (Activity activity : backlogItem.getActivities()) {
+            activity.setDone(true);
+        }
+
+        // Act
+        backlogItem.setStatus(developer, doneState);
+
+        // Assert
+        assertEquals(doneState, backlogItem.getCurrentState()); // Status moet veranderd zijn naar Done
+    }
+
 
     @AfterEach
     void tearDown() {

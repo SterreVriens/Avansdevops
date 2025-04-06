@@ -1,10 +1,17 @@
-package  domain.backlogitem.models.states;
+package domain.backlogitem.models.states;
 
-import  domain.backlogitem.interfaces.IBacklogItemState;
+import domain.backlogitem.interfaces.IBacklogItemState;
+import domain.backlogitem.models.BacklogItem;
 
-public class ReadyForTestingState implements IBacklogItemState{
+public class ReadyForTestingState implements IBacklogItemState {
     @Override
     public String toString() {
         return "Ready for testing";
+    }
+
+    @Override
+    public void setState(BacklogItem backlogItem) {
+        backlogItem.setCurrentState(this);
+        backlogItem.notifyObservers();
     }
 }

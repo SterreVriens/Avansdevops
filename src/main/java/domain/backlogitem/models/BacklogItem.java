@@ -48,7 +48,7 @@ public class BacklogItem {
             return;
         }
 
-        this.currentState = state;
+        state.setState(this);
         notifyObservers();
     }
     
@@ -118,6 +118,15 @@ public class BacklogItem {
 
     public void addActivity(Activity activity) {
         activities.add(activity);
+    }
+
+    public boolean areAllActivitiesDone() {
+        for (Activity activity : activities) {
+            if (!activity.isDone()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public User getAssignedTo() {
