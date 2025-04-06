@@ -5,6 +5,8 @@ import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintStrategy;
 import  domain.sprint.states.FinalizedSprintState;
 
+// Strategy pattern
+
 public class ReviewSprintStrategy implements ISprintStrategy {
 
     @Override

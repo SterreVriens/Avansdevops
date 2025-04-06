@@ -3,6 +3,8 @@ package  domain.sprint.states;
 import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintState;
 
+// State pattern
+
 public class FinalizedSprintState implements ISprintState {
     private Sprint sprint;
 

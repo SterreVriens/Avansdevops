@@ -1,5 +1,7 @@
 package  domain.pipeline;
 
+//Composite pattern
+
 public class Step extends PipelineComponent {
     private String name;
     private String command;

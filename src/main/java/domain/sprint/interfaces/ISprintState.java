@@ -1,5 +1,7 @@
 package  domain.sprint.interfaces;
 
+//State pattern
+
 public interface ISprintState {
     public void start();
     public void finish();

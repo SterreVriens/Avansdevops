@@ -4,6 +4,8 @@ import domain.common.models.User;
 import domain.notification.interfaces.ISenderStrategy;
 import infrastructure.libs.notifications.SlackLibrary;
 
+//adapter pattern
+
 public class SlackAdapter implements ISenderStrategy {
     private SlackLibrary slackLibrary;
 

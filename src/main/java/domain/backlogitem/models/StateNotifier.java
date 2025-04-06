@@ -7,6 +7,8 @@ import domain.backlogitem.models.states.ReadyForTestingState;
 import domain.common.models.User;
 import domain.notification.models.NotificationService;
 
+//Observer pattern
+
 public class StateNotifier implements IBacklogItemObserver {
     private NotificationService notificationService;
 

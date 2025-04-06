@@ -1,5 +1,7 @@
 package domain.sprintraport;
 
+//Builder pattern
+
 public class Raport {
     private String header;
     private String content;

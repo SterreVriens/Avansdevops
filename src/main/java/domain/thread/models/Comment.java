@@ -2,6 +2,8 @@ package  domain.thread.models;
 
 import domain.common.models.User;
 
+//Composite pattern
+
 public class Comment extends ThreadComponent {
     private String text;
     private User author;

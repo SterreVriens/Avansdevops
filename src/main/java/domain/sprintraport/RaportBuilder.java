@@ -1,5 +1,7 @@
 package domain.sprintraport;
 
+//Builder pattern
+
 public class RaportBuilder {
     private String header = "default header";
     private String content = "default body";

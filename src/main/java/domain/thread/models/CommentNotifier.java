@@ -6,6 +6,8 @@ import domain.thread.models.Thread;
 import domain.notification.models.NotificationService;
 import domain.thread.interfaces.IThreadObserver;
 
+// Observer pattern
+
 public class CommentNotifier implements IThreadObserver {
     private NotificationService notificationService;
 

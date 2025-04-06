@@ -3,6 +3,8 @@ package  domain.pipeline;
 import java.util.ArrayList;
 import java.util.List;
 
+//Composite pattern
+
 public class PipelineCompositeComponent extends PipelineComponent {
     private List<PipelineComponent> children = new ArrayList<>();
 

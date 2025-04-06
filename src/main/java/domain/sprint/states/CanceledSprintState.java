@@ -4,6 +4,8 @@ import  domain.common.models.User;
 import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintState;
 
+// State pattern
+
 public class CanceledSprintState implements ISprintState {
     private Sprint sprint;
 

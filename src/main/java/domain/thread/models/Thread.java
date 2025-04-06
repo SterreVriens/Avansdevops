@@ -7,6 +7,8 @@ import domain.backlogitem.models.states.FinalizedState;
 import domain.common.models.User;
 import domain.thread.interfaces.IThreadObserver;
 
+//Observer pattern
+
 public class Thread extends ThreadComponent {
     private ArrayList<ThreadComponent> children = new ArrayList<>();
     private ArrayList<IThreadObserver> observers = new ArrayList<>();
