@@ -206,7 +206,7 @@ void setUp() {
         assertTrue(outContent.toString().contains("Initial commit"));
         assertTrue(outContent.toString().contains("Second commit"));
     }
-    
+
     @Test
     void testCreateBranch_ShouldCallGitLibrary() {
         gitAdapter.createBranch(branch, repository);
@@ -218,7 +218,56 @@ void setUp() {
         gitAdapter.createCommit(commit, branch, repository);
         verify(gitLibraryMock).commit("Initial commit", "dev1", "main", "Repo1");
     }
+
+    @Test
+    void testGitLibraryCommit_ShouldPrintCommitDetails() {
+        // Arrange
+        GitLibrary gitLibrary = new GitLibrary();
+        String message = "Test commit message";
+        String authorName = "dev1";
+        String branch = "main";
+        String repoName = "Repo1";
+        
+        // Act
+        gitLibrary.commit(message, authorName, branch, repoName);
+
+        // Assert - Controleren of een deel van de output aanwezig is
+        assertTrue(outContent.toString().contains("Committing changes with message: " + message), 
+            "Expected commit message to be printed.");
+        resetOutput();
+    }
+
+    @Test
+    void testGitLibraryCreateBranch_ShouldPrintBranchDetails() {
+        // Arrange
+        GitLibrary gitLibrary = new GitLibrary(); // Using real GitLibrary instance
+        String branchName = "TestBranch";
+        String repoName = "Repo1";
+        
+        // Act
+        gitLibrary.createBranch(branchName, repoName);
+
+        // Assert - Controleren of een deel van de output aanwezig is
+        assertTrue(outContent.toString().contains("Creating branch: " + branchName), 
+            "Expected branch creation message to be printed.");
+        resetOutput();
+    }
+
+    @Test
+    void testGitLibraryCreateRepo_ShouldPrintRepoDetails() {
+        // Arrange
+        GitLibrary gitLibrary = new GitLibrary(); // Using real GitLibrary instance
+        String repoName = "TestRepo";
+        
+        // Act
+        gitLibrary.createRepo(repoName);
     
+        // Assert - Controleren of een deel van de output aanwezig is
+        assertTrue(outContent.toString().contains("Creating repository: " + repoName), 
+            "Expected repository creation message to be printed.");
+        resetOutput();
+    }
+
     @AfterEach
     void tearDown() {
         // Reset System.out naar de originele waarde
