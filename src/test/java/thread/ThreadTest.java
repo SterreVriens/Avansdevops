@@ -232,6 +232,44 @@ public class ThreadTest {
         assertEquals(commentText, ((Comment) thread.getChildren().get(threadSize - 1)).getText(), "De tekst van de reactie moet overeenkomen.");
     }
 
+    @Test
+    void testBacklogItem_AddAndGetThread() {
+        Thread thread1 = new Thread("Discussie A", "Beschrijving A", backlogItem, developer);
+        Thread thread2 = new Thread("Discussie B", "Beschrijving B", backlogItem, developer);
+
+        backlogItem.addThread(thread1);
+        backlogItem.addThread(thread2);
+
+        assertEquals(thread1, backlogItem.getThreadByTitle("Discussie A"));
+        assertEquals(thread2, backlogItem.getThreadByTitle("Discussie B"));
+        assertNull(backlogItem.getThreadByTitle("Niet bestaand"));
+    }
+
+    @Test
+    void testBacklogItem_RemoveThread() {
+        Thread thread = new Thread("Te verwijderen", "Beschrijving", backlogItem, developer);
+        backlogItem.addThread(thread);
+
+        assertEquals(thread, backlogItem.getThreadByTitle("Te verwijderen"));
+
+        backlogItem.removeThread(thread);
+
+        assertNull(backlogItem.getThreadByTitle("Te verwijderen"), "Thread moet verwijderd zijn.");
+    }
+
+    @Test
+    void testBacklogItem_PrintThreads() {
+        Thread thread1 = new Thread("Discussie A", "Beschrijving A", backlogItem, developer);
+        backlogItem.addThread(thread1);
+
+        // Act
+        backlogItem.printThreads();
+
+        // Assert — de test is geslaagd als er geen fouten optreden
+        assertTrue(true, "Threads printen zonder error.");
+    }
+
+
     @AfterEach
     void tearDown() {
         // Reset System.out naar de originele waarde

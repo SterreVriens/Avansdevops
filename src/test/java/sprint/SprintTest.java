@@ -9,7 +9,10 @@ import domain.common.enums.UserRole;
 import domain.common.models.Backlog;
 import domain.common.models.Project;
 import domain.common.models.User;
+import domain.pipeline.Pipeline;
 import domain.sprint.Sprint;
+import domain.sprint.states.CreatedSprintState;
+import domain.sprint.states.StartedSprintState;
 import domain.sprint.strategies.ReleaseSprintStrategy;
 import domain.sprint.strategies.ReviewSprintStrategy;
 import infrastructure.adapters.notifications.EmailAdapter;
@@ -95,4 +98,70 @@ class SprintTest {
     // TC-26 Een release sprint wordt afgerond, met een niet werkende pipeline.
     // De scrum master en product owner krijgen een notificatie van de niet correcte afsluiting.
 
+
+    //TC-27 Sprint wordt aangepast als hij nog niet gestart is
+    @Test
+    void testSetName_WhenStateIsCreated_ShouldUpdateName() {
+        Sprint sprint = new Sprint("Sprint X", new Date(), new Date(), scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+
+        sprint.setName("Updated Name");
+
+        assertEquals("Updated Name", sprint.getName());
+    }
+
+    @Test
+    void testSetStartDate_WhenStateIsCreated_ShouldUpdateStartDate() {
+        Sprint sprint = new Sprint("Sprint Start", new Date(), new Date(), scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+
+        Date newStartDate = new Date(System.currentTimeMillis() + 100000);
+        sprint.setStartDate(newStartDate);
+
+        assertEquals(newStartDate, sprint.getStartDate());
+    }
+    
+    @Test
+    void testSetEndDate_WhenStateIsCreated_ShouldUpdateEndDate() {
+        Sprint sprint = new Sprint("Sprint", new Date(), new Date(), scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+
+        Date newEndDate = new Date(System.currentTimeMillis() + 200000);
+        sprint.setEndDate(newEndDate);
+
+        assertEquals(newEndDate, sprint.getEndDate());
+    }
+
+    // TC-28 Sprint kan niet worden aangepast als hij al gestart is
+    @Test
+    void testSetName_WhenStateIsNotCreated_ShouldNotUpdateName() {
+        Sprint sprint = new Sprint("Original Name", new Date(), new Date(), scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+        sprint.start();
+
+        sprint.setName("New Name");
+
+        assertNotEquals("New Name", sprint.getName());
+        assertEquals("Original Name", sprint.getName());
+    }
+
+    @Test
+    void testSetStartDate_WhenStateIsNotCreated_ShouldNotUpdateStartDate() {
+        Date originalDate = new Date();
+        Sprint sprint = new Sprint("Sprint", originalDate, new Date(), scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+        sprint.start();
+
+        Date newStartDate = new Date(System.currentTimeMillis() + 100000);
+        sprint.setStartDate(newStartDate);
+
+        assertEquals(originalDate, sprint.getStartDate());
+    }
+
+    @Test
+    void testSetEndDate_WhenStateIsNotCreated_ShouldNotUpdateEndDate() {
+        Date originalEnd = new Date();
+        Sprint sprint = new Sprint("Sprint", new Date(), originalEnd, scrumMaster, new ReleaseSprintStrategy(new Pipeline("Test pipeline")), project);
+        sprint.start();
+
+        Date newEndDate = new Date(System.currentTimeMillis() + 200000);
+        sprint.setEndDate(newEndDate);
+
+        assertEquals(originalEnd, sprint.getEndDate());
+    }
 }
