@@ -4,7 +4,7 @@ public interface ISprintState {
     public void start();
     public void finish();
     public void raport();
-    public void  finalized();
+    public void finalize();
     public void cancel();
 
 }

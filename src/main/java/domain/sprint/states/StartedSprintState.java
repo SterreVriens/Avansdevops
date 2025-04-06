@@ -22,7 +22,7 @@ public class StartedSprintState implements ISprintState {
     }
 
     @Override
-    public void  finalized() {
+    public void finalize() {
         System.err.println("⛔️ Sprint is not finished yet.");
     }
 

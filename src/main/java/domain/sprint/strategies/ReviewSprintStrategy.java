@@ -3,11 +3,12 @@ package  domain.sprint.strategies;
 import  domain.common.models.User;
 import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintStrategy;
-import  domain.sprint.states. FinalizedSprintState;
+import  domain.sprint.states.FinalizedSprintState;
 
 public class ReviewSprintStrategy implements ISprintStrategy {
 
-    public void  finalizedSprint(Sprint sprint) {
+    @Override
+    public void finalizeSprint(Sprint sprint) {
         System.out.println("Reviewing the sprint...");
 
         if(sprint.getReviewSummery() == null) {
@@ -19,7 +20,7 @@ public class ReviewSprintStrategy implements ISprintStrategy {
             User[] users = new User[] { sprint.getScrumMaster(), sprint.getProject().getProductOwner() };
             sprint.sendNotification(users, subject, message);
 
-            sprint.setState(new  FinalizedSprintState(sprint));
+            sprint.setState(new FinalizedSprintState(sprint));
             System.out.println("Review summary: " + sprint.getReviewSummery());
         }
     }

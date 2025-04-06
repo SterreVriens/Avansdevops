@@ -22,10 +22,10 @@ public class FinishedSprintState implements ISprintState {
     }
 
     @Override
-    public void  finalized() {
+    public void finalize() {
         
-        this.sprint.getSprintStrategy(). finalizedSprint(this.sprint);
-        System.out.println("Sprint " + this.sprint.getName() + "  finalizedd.");
+        this.sprint.getSprintStrategy().finalizeSprint(this.sprint);
+        System.out.println("Sprint " + this.sprint.getName() + " finalized.");
     }
 
     @Override

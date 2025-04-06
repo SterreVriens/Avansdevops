@@ -1,3 +1,13 @@
+// package project;
+
+// public class Main {
+
+//     public static void main(String[] args) {
+//         System.out.println("Hello, World!");
+//     }
+// }
+
+
 import java.util.Date;
 
 import  domain.backlogitem.models.BacklogItem;
@@ -7,6 +17,8 @@ import  domain.common.enums.UserRole;
 import  domain.common.models.Backlog;
 import  domain.common.models.Project;
 import  domain.common.models.User;
+import domain.thread.models.Comment;
+import  domain.thread.models.Thread;
 import  domain.pipeline.Pipeline;
 import  domain.pipeline.Step;
 import  domain.sprint.Sprint;
@@ -36,6 +48,7 @@ public class Main {
         Sprint releaseSprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1, new ReleaseSprintStrategy(pipeline), project);
         Sprint reviewSprint1 = new Sprint("Initial Sprint", new Date(), new Date(), user1, new ReviewSprintStrategy(), project);
 
+        //TODO: ?
         reviewSprint1.setReviewSummery("Review summary");
 
          project.addTeamMembers(user1);
@@ -48,6 +61,7 @@ public class Main {
 
         bi1.setAssignedTo(user1,user1);
 
+        //TODO: ? Dit geeft een ready for testing melding ??
         bi1.setStatus(user2, new DoingState());
        System.out.println( bi1.getCurrentState());
         // bi1.setStatus(user2, new ReadyForTestingState());
@@ -113,6 +127,6 @@ public class Main {
 
         // reviewSprint1.finish();
 
-        // reviewSprint1. finalized();
+        // reviewSprint1.finalize();
     }
 }

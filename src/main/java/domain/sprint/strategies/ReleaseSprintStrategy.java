@@ -3,7 +3,7 @@ package  domain.sprint.strategies;
 import  domain.pipeline.Pipeline;
 import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintStrategy;
-import  domain.sprint.states. FinalizedSprintState;
+import  domain.sprint.states.FinalizedSprintState;
 
 public class ReleaseSprintStrategy implements ISprintStrategy {
 
@@ -13,7 +13,8 @@ public class ReleaseSprintStrategy implements ISprintStrategy {
         this.pipeline = pipeline;
     }
 
-    public void  finalizedSprint(Sprint sprint) {
+    @Override
+    public void finalizeSprint(Sprint sprint) {
         // Logic to release the sprint
         System.out.println("Releasing the sprint...");
         if (pipeline != null) {
@@ -21,7 +22,7 @@ public class ReleaseSprintStrategy implements ISprintStrategy {
         } else {
             System.out.println("No pipeline configured for release.");
         }
-        sprint.setState(new  FinalizedSprintState(sprint));
+        sprint.setState(new FinalizedSprintState(sprint));
 
 
     

@@ -1,12 +1,6 @@
 package pipeline;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Date;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +12,12 @@ import domain.pipeline.Step;
 import domain.sprint.Sprint;
 import domain.sprint.strategies.ReleaseSprintStrategy;
 import infrastructure.adapters.notifications.EmailAdapter;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PipelineTest {
 
@@ -46,9 +46,9 @@ public class PipelineTest {
     //TC-43 Pipeline correct aangemaakt
     @Test
     void testPipelineCreation() {
-        // Assert – naam van de pipeline en presence van steps checken via  finalized output
+        // Assert – naam van de pipeline en presence van steps checken via finalize output
         sprint.finish(); // zet naar review
-        sprint. finalized(); // triggert de pipeline
+        sprint.finalize(); // triggert de pipeline
 
         String consoleOutput = output.toString();
         assertTrue(consoleOutput.contains("Starting pipeline: Release Pipeline"));
@@ -61,9 +61,9 @@ public class PipelineTest {
     //TC-44 Pipeline wordt uitgevoerd bij release
     @Test
     void testPipelineRunsOnReleaseSprint() {
-        // Act – simulate  finalized phase
+        // Act – simulate finalize phase
         sprint.finish();
-        sprint. finalized();
+        sprint.finalize();
 
         // Assert
         String consoleOutput = output.toString();
@@ -76,7 +76,7 @@ public class PipelineTest {
     void testRealtimeStatusUpdatesDuringPipeline() {
         // Act
         sprint.finish();
-        sprint. finalized();
+        sprint.finalize();
 
         // Assert
         String consoleOutput = output.toString();

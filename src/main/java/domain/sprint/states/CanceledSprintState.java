@@ -1,5 +1,6 @@
 package  domain.sprint.states;
 
+import  domain.common.models.User;
 import  domain.sprint.Sprint;
 import  domain.sprint.interfaces.ISprintState;
 
@@ -25,8 +26,8 @@ public class CanceledSprintState implements ISprintState {
     }
 
     @Override
-    public void  finalized() {
-        throw new UnsupportedOperationException("Cannot  finalized a canceled sprint.");
+    public void finalize() {
+        throw new UnsupportedOperationException("Cannot finalize a canceled sprint.");
     }
 
     @Override
